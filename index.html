@@ -3,180 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samuel's Portfolio</title>
-    <meta name="description" content="Portfolio of Samuel - Software Developer, Car Enthusiast.">
+    <title>Samuel H. | Software Developer</title>
+    <meta name="description" content="Innovative developer merging technical excellence with automotive passion">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2E4053;
-            --secondary-color: #3498DB;
-            --accent-color: #E74C3C;
+            --primary: #0a192f;
+            --secondary: #64ffda;
+            --accent: #ccd6f6;
+            --dark-slate: #495670;
+            --slate: #8892b0;
+            --transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
+            background: var(--primary);
+            color: var(--accent);
             line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            background: var(--primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--dark-slate);
+            border-radius: 4px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 2rem;
         }
 
         header {
-            background: var(--primary-color);
-            color: white;
-            padding: 4rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(45deg, var(--primary) 30%, #020c1b 100%);
         }
 
         .profile-header {
+            position: relative;
+            z-index: 1;
             text-align: center;
+            width: 100%;
         }
 
         .avatar {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
-            border: 4px solid white;
+            border: 3px solid var(--secondary);
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        h1 {
+            font-size: 4rem;
             margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent) 30%, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         nav {
-            background: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 0;
         }
 
         .nav-links {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
+            justify-content: flex-end;
+            gap: 3rem;
             list-style: none;
         }
 
         .nav-links a {
-            color: var(--primary-color);
+            color: var(--accent);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
         }
 
-        .nav-links a:hover {
-            color: var(--secondary-color);
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         section {
-            padding: 4rem 0;
+            padding: 8rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .card {
-            background: white;
+            background: rgba(17, 34, 64, 0.5);
             padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            border-radius: 15px;
+            border: 1px solid var(--dark-slate);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
         }
 
         .card:hover {
             transform: translateY(-5px);
+            border-color: var(--secondary);
         }
 
-        footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 4rem;
+        .card:hover::before {
+            opacity: 1;
         }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1rem;
+        .skill-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--secondary);
+            border-radius: 20px;
+            margin: 0.5rem 0.5rem 0 0;
+            font-size: 0.9rem;
+            border: 1px solid var(--secondary);
         }
 
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: color 0.3s;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
             .nav-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
+                justify-content: center;
+                gap: 2rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container profile-header">
-            <img src="https://avatars.githubusercontent.com/u/182603417" alt="Your Avatar" class="avatar">
-            <h1>SamHGT466</h1>
-            <p>Software Developer</p>
-        </div>
-    </header>
-
     <nav>
         <div class="container">
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
 
+    <header>
+        <div class="container profile-header">
+            <img src="https://avatars.githubusercontent.com/u/182603417" alt="Samuel" class="avatar">
+            <h1>Samuel H.</h1>
+            <p>Building Digital Solutions & Automotive Dreams</p>
+        </div>
+    </header>
+
     <main class="container">
         <section id="about">
-            <h2>👋 Welcome to My Portfolio</h2>
-            <p>I'm a passionate developer with experience in HTML, CSS, JavaScript, C++ and Python. I'm also a car enthusiast if that wasn't obvious enough! ;p </p>
+            <h2>About Me</h2>
+            <p class="section-subtext">A fusion of technical precision and automotive passion</p>
+            <div class="content">
+                <p>Developer with a need for speed - both in code execution and on the racetrack. Specializing in crafting high-performance applications with the elegance of well-tuned engineering.</p>
+            </div>
         </section>
 
         <section id="skills">
-            <h2>🛠 Technical Skills</h2>
+            <h2>Technical Arsenal</h2>
             <div class="card-grid">
                 <div class="card">
-                    <h3>Frontend</h3>
-                    <p>HTML, CSS, JavaScript, C++, Python</p>
+                    <h3>Core Stack</h3>
+                    <div class="skill-tag">C++</div>
+                    <div class="skill-tag">Python</div>
+                    <div class="skill-tag">JavaScript</div>
+                    <div class="skill-tag">Node.js</div>
                 </div>
                 <div class="card">
-                    <h3>Backend</h3>
-                    <p>Node.js, Python, SQL, MongoDB</p>
+                    <h3>Specialized Tools</h3>
+                    <div class="skill-tag">MongoDB</div>
+                    <div class="skill-tag">PostgreSQL</div>
+                    <div class="skill-tag">Docker</div>
+                    <div class="skill-tag">Git</div>
                 </div>
             </div>
         </section>
 
         <section id="projects">
-            <h2>💻 Projects</h2>
-            <div class="card-grid" id="projects-grid">
-            </div>
+            <h2>Engineering Showcase</h2>
+            <div class="card-grid" id="projects-grid"></div>
         </section>
     </main>
 
     <script>
-        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
         async function loadProjects() {
             try {
                 const response = await fetch('https://api.github.com/users/SamHGT466/repos?sort=updated');
@@ -188,11 +286,14 @@
                         const card = document.createElement('div');
                         card.className = 'card';
                         card.innerHTML = `
-                            <h3>${repo.name}</h3>
-                            ${repo.description ? `<p>${repo.description}</p>` : ''}
-                            <div class="repo-meta">
-                                ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
-                                <a href="${repo.html_url}" target="_blank">View Project</a>
+                            <h3>${repo.name.replace(/-/g, ' ')}</h3>
+                            <p>${repo.description || 'Code in motion'}</p>
+                            <div class="project-meta">
+                                ${repo.language ? `<span class="skill-tag">${repo.language}</span>` : ''}
+                                <a href="${repo.html_url}" target="_blank" 
+                                   style="color: var(--secondary); margin-top: 1rem; display: inline-block;">
+                                   Explore Code <i class="fas fa-external-link-alt"></i>
+                                </a>
                             </div>
                         `;
                         projectsGrid.appendChild(card);
