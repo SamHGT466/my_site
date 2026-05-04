@@ -4,128 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samuel | Software Developer</title>
-    <meta name="description" content="IT Student from Italy with a passion for cars.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- MODIFICA: meta description più specifica per il portfolio -->
+    <meta name="description"
+          content="Portfolio of Samuel — IT student and software developer from Italy. Explore projects, skills, and get in touch.">
+
+    <!-- Font Awesome per icone -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLGPg8YJ04IY0iYIiQENRQ0ENzU6M6OxzZrjSKivKQ3WpzFmOsIxkPb7Q=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- MODIFICA: importiamo solo i pesi che usiamo effettivamente -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
     <style>
+        /* ============================================================
+           DESIGN TOKENS — Single source of truth per colori, font, spazi
+           ============================================================ */
         :root {
             --primary: #0a192f;
+            --primary-light: #112240;
             --secondary: #64ffda;
             --accent: #ccd6f6;
-            --dark-slate: #495670;
+            --text-body: #a8b2d1;
             --slate: #8892b0;
-            --transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+            --dark-slate: #495670;
+            --card-bg: rgba(17, 34, 64, 0.55);
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                         Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            --transition-fast: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+            --transition-slow: opacity 0.6s ease-out, transform 0.6s ease-out;
+            --max-width: 1200px;
+            --radius: 12px;
+            --gap: 2rem;
         }
 
-        * {
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            /* Compensa la nav fissa quando si clicca un anchor link */
+            scroll-padding-top: 5rem;
         }
 
         body {
+            font-family: var(--font-sans);
             background: var(--primary);
-            color: var(--accent);
-            line-height: 1.6;
+            color: var(--text-body);
+            line-height: 1.7;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        ::-webkit-scrollbar {
-            width: 8px;
-            background: var(--primary);
+        /* NUOVO: selezione testo personalizzata */
+        ::selection {
+            background: rgba(100, 255, 218, 0.2);
+            color: var(--secondary);
         }
 
+        /* Scrollbar personalizzata (Webkit) */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--primary); }
         ::-webkit-scrollbar-thumb {
             background: var(--dark-slate);
             border-radius: 4px;
         }
 
+        /* Immagini fluide di default */
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* Link generici */
+        a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+        a:hover { opacity: 0.85; }
+
+        /* NUOVO: Focus visibile per navigazione da tastiera (accessibilità) */
+        :focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        /* ============================================================
+           LAYOUT — Container & Sezioni
+           ============================================================ */
         .container {
-            max-width: 1200px;
+            max-width: var(--max-width);
             margin: 0 auto;
             padding: 0 2rem;
         }
 
-        header {
-            min-height: 100vh;
+        /* NUOVO: stilistica titoli sezione */
+        .section-heading {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            position: relative;
-            background: linear-gradient(45deg, var(--primary) 30%, #020c1b 100%);
+            gap: 0.75rem;
         }
 
-        .profile-header {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            width: 100%;
-        }
-
-        .avatar {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 3px solid var(--secondary);
-            margin-bottom: 2rem;
-            transition: var(--transition);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--accent) 30%, var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 25, 47, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1.5rem 0;
-        }
-
-        .nav-links {
-            display: flex;
-            justify-content: flex-end;
-            gap: 3rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            padding: 0.5rem 0;
-            transition: var(--transition);
-        }
-
-        .nav-links a::after {
+        /* Linea decorativa prima del titolo sezione */
+        .section-heading::before {
             content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
+            display: inline-block;
+            width: 40px;
+            height: 3px;
             background: var(--secondary);
-            transition: var(--transition);
+            border-radius: 2px;
+            flex-shrink: 0;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        /* NUOVO: stile per paragrafi corpo testo */
+        .section-text {
+            max-width: 640px;
+            font-size: 1.05rem;
+            color: var(--slate);
+            margin-bottom: 1.5rem;
         }
 
+        /* Sezioni: animazione ingresso —
+           MODIFICA: se JS è disabilitato, le sezioni sono comunque visibili (grazie a noscript sotto) */
         section {
-            padding: 8rem 0;
+            padding: 6rem 0;
             opacity: 0;
-            transform: translateY(20px);
-            transition: var(--transition);
+            transform: translateY(24px);
+            transition: var(--transition-slow);
         }
 
         section.visible {
@@ -133,19 +153,229 @@
             transform: translateY(0);
         }
 
+        /* ============================================================
+           NAVIGAZIONE
+           ============================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.05);
+        }
+
+        .navbar__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* NUOVO: Logo/nome nella navbar */
+        .navbar__logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+        }
+        .navbar__logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            padding: 0.4rem 0;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: var(--secondary);
+            border-radius: 1px;
+            transition: var(--transition-fast);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a:focus-visible::after {
+            width: 100%;
+        }
+
+        /* NUOVO: Hamburger menu button (visibile solo su mobile, tramite media query) */
+        .navbar__toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        /* ============================================================
+           HERO / HEADER
+           ============================================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(160deg, var(--primary) 0%, #020c1b 100%);
+            text-align: center;
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid var(--secondary);
+            margin: 0 auto 2rem;
+            object-fit: cover;
+            transition: var(--transition-fast);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(100, 255, 218, 0.25);
+        }
+
+        .hero__name {
+            font-size: clamp(2.8rem, 7vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, var(--accent) 30%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        /* NUOVO: tagline sotto il nome */
+        .hero__tagline {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--slate);
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        /* NUOVO: CTA buttons */
+        .hero__actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: none;
+        }
+
+        .btn--primary {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+        .btn--primary:hover {
+            box-shadow: 0 4px 20px rgba(100, 255, 218, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn--outline {
+            background: transparent;
+            color: var(--secondary);
+            border: 1.5px solid var(--secondary);
+        }
+        .btn--outline:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           ABOUT
+           ============================================================ */
+        .about__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin-top: 2rem;
+        }
+
+        .about__text p + p {
+            margin-top: 1rem;
+        }
+
+        /* NUOVO: card dettagli rapidi */
+        .about__details {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .about__details li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--slate);
+        }
+
+        .about__details li i {
+            color: var(--secondary);
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ============================================================
+           SKILLS
+           ============================================================ */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--gap);
+            margin-top: 2rem;
         }
 
         .card {
-            background: rgba(17, 34, 64, 0.5);
+            background: var(--card-bg);
             padding: 2rem;
-            border-radius: 15px;
+            border-radius: var(--radius);
             border: 1px solid var(--dark-slate);
-            transition: var(--transition);
+            transition: var(--transition-fast);
             position: relative;
             overflow: hidden;
         }
@@ -153,18 +383,16 @@
         .card::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            inset: -1px;
+            background: linear-gradient(135deg, var(--secondary), transparent, var(--primary));
             z-index: -1;
             opacity: 0;
-            transition: var(--transition);
+            transition: var(--transition-fast);
+            border-radius: var(--radius);
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
             border-color: var(--secondary);
         }
 
@@ -172,139 +400,644 @@
             opacity: 1;
         }
 
+        .card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* MODIFICA: tag skill adesso sono <span> semantici dentro una flex-wrap container */
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
         .skill-tag {
             display: inline-block;
-            padding: 0.5rem 1rem;
-            background: rgba(100, 255, 218, 0.1);
+            padding: 0.4rem 0.9rem;
+            background: rgba(100, 255, 218, 0.08);
             color: var(--secondary);
             border-radius: 20px;
-            margin: 0.5rem 0.5rem 0 0;
-            font-size: 0.9rem;
-            border: 1px solid var(--secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(100, 255, 218, 0.25);
+            transition: var(--transition-fast);
         }
 
+        .skill-tag:hover {
+            background: rgba(100, 255, 218, 0.15);
+        }
+
+        /* ============================================================
+           PROJECTS
+           ============================================================ */
+        .project-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        /* NUOVO: indicatore di caricamento per progetti */
+        .loader {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--slate);
+            font-size: 0.95rem;
+        }
+        .loader i {
+            margin-right: 0.5rem;
+            animation: spin 1s linear infinite;
+        }
+
+        /* NUOVO: messaggio di fallback se nessun progetto */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--slate);
+        }
+        .empty-state i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: var(--dark-slate);
+        }
+
+        /* ============================================================
+           FOOTER — NUOVO
+           ============================================================ */
+        .site-footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(100, 255, 218, 0.08);
+            margin-top: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--slate);
+            font-size: 1.25rem;
+            transition: var(--transition-fast);
+        }
+        .social-links a:hover {
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .site-footer p {
+            font-size: 0.85rem;
+            color: var(--dark-slate);
+        }
+
+        /* ============================================================
+           ANIMAZIONI
+           ============================================================ */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50%      { transform: translateY(-16px); }
         }
 
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* NUOVO: rispetta preferenza utente per animazioni ridotte */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+            section { opacity: 1; transform: none; }
+        }
+
+        /* ============================================================
+           RESPONSIVE — Mobile First
+           ============================================================ */
+
+        /* Tablet (768px+) */
+        @media (min-width: 768px) {
+            .about__grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Desktop: reset del mobile hamburger, mostra nav links */
+        @media (min-width: 769px) {
+            .navbar__toggle {
+                display: none;
+            }
+        }
+
+        /* Mobile (max 768px) */
         @media (max-width: 768px) {
             .container {
-                padding: 0 1.5rem;
+                padding: 0 1.25rem;
             }
 
-            h1 {
-                font-size: 3rem;
-            }
-
-            .nav-links {
-                justify-content: center;
-                gap: 2rem;
+            section {
+                padding: 4rem 0;
             }
 
             .card-grid {
                 grid-template-columns: 1fr;
             }
+
+            /* Toggle hamburger visibile */
+            .navbar__toggle {
+                display: block;
+            }
+
+            /* Nav links: overlay fullscreen su mobile */
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: min(300px, 75vw);
+                height: 100vh;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                background: var(--primary-light);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-links.open {
+                transform: translateX(0);
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
+            }
+
+            /* Overlay scuro quando menu è aperto */
+            .nav-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+            .nav-overlay.active {
+                display: block;
+            }
+
+            /* About: stack verticale */
+            .about__grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Schermi molto piccoli (max 480px) */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .avatar {
+                width: 140px;
+                height: 140px;
+            }
+
+            .hero__actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 260px;
+                justify-content: center;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <ul class="nav-links">
+
+    <!-- ============================================================
+         NAVBAR — Aggiunto logo, hamburger menu per mobile, overlay
+         ============================================================ -->
+    <nav class="navbar" aria-label="Primary navigation">
+        <div class="container navbar__inner">
+
+            <a href="#" class="navbar__logo" aria-label="Samuel — Home">Sam<span>.</span></a>
+
+            <!-- Hamburger button (visibile solo su mobile via CSS) -->
+            <button class="navbar__toggle"
+                    aria-label="Toggle navigation menu"
+                    aria-expanded="false"
+                    aria-controls="nav-menu">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </button>
+
+            <ul class="nav-links" id="nav-menu" role="list">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <header>
-        <div class="container profile-header">
-            <img src="https://avatars.githubusercontent.com/u/182603417" alt="Samuel" class="avatar">
-            <h1>Samuel</h1>
-            <p>Creating meh apps for a school project</p>
+    <!-- Overlay scuro per menu mobile -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- ============================================================
+         HERO / HEADER — Migliorato con tagline e CTA
+         ============================================================ -->
+    <header class="hero" id="hero">
+        <div class="container hero__content">
+            <!-- MODIFICA: alt più descrittivo per accessibilità -->
+            <img src="https://avatars.githubusercontent.com/u/182603417"
+                 alt="Profile photo of Samuel, software developer"
+                 class="avatar"
+                 width="180" height="180"
+                 loading="eager">
+
+            <h1 class="hero__name">Samuel</h1>
+
+            <!-- MODIFICA: tagline più professionale (vedi sezione micro-copy) -->
+            <p class="hero__tagline">IT Student &amp; Aspiring Software Developer</p>
+
+            <!-- NUOVO: CTA buttons -->
+            <div class="hero__actions">
+                <a href="#projects" class="btn btn--primary">
+                    <i class="fas fa-code"></i> View Projects
+                </a>
+                <a href="#contact" class="btn btn--outline">
+                    <i class="fas fa-envelope"></i> Get in Touch
+                </a>
+            </div>
         </div>
     </header>
 
+    <!-- ============================================================
+         MAIN CONTENT
+         ============================================================ -->
     <main class="container">
-        <section id="about">
-            <h2>About Me</h2>
-            <p class="section-subtext">Greetings!</p>
-            <div class="content">
-                <p>I'm Samuel, an IT student from Italy with a deep passion for cars and motorbikes also. It all started when i was young...messing around with an old J3 2016...customizing it to the core. We all start somewhere, i guess...LOL.</p>
+
+        <!-- ============================================================
+             ABOUT — Layout a griglia con dettagli rapidi
+             ============================================================ -->
+        <section id="about" aria-labelledby="about-heading">
+            <h2 class="section-heading" id="about-heading">About Me</h2>
+            <div class="about__grid">
+                <div class="about__text">
+                    <!-- MODIFICA: testo migliorato (vedi micro-copy) -->
+                    <p class="section-text">
+                        Hey there! I'm Samuel, an IT student from Italy with a deep passion
+                        for software development and all things automotive. My journey into
+                        tech started years ago, tinkering with my old Samsung Galaxy J3 (2016)
+                        — customizing it to the core until there was nothing left to mod. That
+                        curiosity eventually led me from ROMs and kernels to code editors and
+                        compilers.
+                    </p>
+                    <p class="section-text">
+                        Today I write code in C++, Python, JavaScript, and C#, and I'm always
+                        looking for new challenges. Whether it's building a school project or
+                        experimenting with a new framework, I believe the best way to learn is
+                        by building things and breaking them — repeatedly.
+                    </p>
+                </div>
+                <ul class="about__details" aria-label="Quick facts about Samuel">
+                    <li>
+                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        <span>Italy</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                        <span>IT Student</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-car" aria-hidden="true"></i>
+                        <span>Cars &amp; Motorbikes Enthusiast</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-code-branch" aria-hidden="true"></i>
+                        <span>Open to Collaborations</span>
+                    </li>
+                </ul>
             </div>
         </section>
 
-        <section id="skills">
-            <h2>Technical Arsenal</h2>
+        <!-- ============================================================
+             SKILLS — Tag semantici <span> con flex-wrap
+             ============================================================ -->
+        <section id="skills" aria-labelledby="skills-heading">
+            <h2 class="section-heading" id="skills-heading">Technical Arsenal</h2>
+            <p class="section-text">
+                The languages and tools I work with daily — and the ones I'm still mastering.
+            </p>
             <div class="card-grid">
-                <div class="card">
-                    <h3>Core Stack</h3>
-                    <div class="skill-tag">C++</div>
-                    <div class="skill-tag">Python</div>
-                    <div class="skill-tag">JavaScript</div>
-                    <div class="skill-tag">C#</div>
-                </div>
-                <div class="card">
-                    <h3>Specialized Tools</h3>
-                    <div class="skill-tag">Visual Studio (On Windows)</div>
-                    <div class="skill-tag">Rider (On MacOS)</div>
-                    <div class="skill-tag">PyCharm</div>
-                    <div class="skill-tag">Git</div>
-                </div>
+                <article class="card">
+                    <h3><i class="fas fa-laptop-code" aria-hidden="true"></i> Core Stack</h3>
+                    <div class="skill-tags" role="list" aria-label="Programming languages">
+                        <span class="skill-tag" role="listitem">C++</span>
+                        <span class="skill-tag" role="listitem">Python</span>
+                        <span class="skill-tag" role="listitem">JavaScript</span>
+                        <span class="skill-tag" role="listitem">C#</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h3><i class="fas fa-tools" aria-hidden="true"></i> Tools &amp; IDEs</h3>
+                    <div class="skill-tags" role="list" aria-label="Development tools">
+                        <span class="skill-tag" role="listitem">Visual Studio</span>
+                        <span class="skill-tag" role="listitem">Rider</span>
+                        <span class="skill-tag" role="listitem">PyCharm</span>
+                        <span class="skill-tag" role="listitem">Git &amp; GitHub</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h3><i class="fas fa-book-open" aria-hidden="true"></i> Currently Learning</h3>
+                    <div class="skill-tags" role="list" aria-label="Technologies I'm learning">
+                        <span class="skill-tag" role="listitem">Web Development</span>
+                        <span class="skill-tag" role="listitem">Data Structures</span>
+                        <span class="skill-tag" role="listitem">Algorithms</span>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <section id="projects">
-            <h2>Engineering Showcase</h2>
-            <div class="card-grid" id="projects-grid"></div>
+        <!-- ============================================================
+             PROJECTS — Caricati da GitHub API con loader e fallback
+             ============================================================ -->
+        <section id="projects" aria-labelledby="projects-heading">
+            <h2 class="section-heading" id="projects-heading">Engineering Showcase</h2>
+            <p class="section-text">
+                A selection of projects from my GitHub — each one taught me something new.
+            </p>
+
+            <!-- Loader: mostrato mentre i progetti caricano -->
+            <div class="loader" id="projects-loader" aria-live="polite">
+                <i class="fas fa-circle-notch" aria-hidden="true"></i> Loading projects from GitHub...
+            </div>
+
+            <div class="card-grid" id="projects-grid" role="list" aria-label="GitHub projects"></div>
+
+            <!-- Empty state: mostrato se non ci sono progetti -->
+            <div class="empty-state" id="projects-empty" hidden>
+                <i class="fas fa-folder-open" aria-hidden="true"></i>
+                <p>No public projects yet — check back soon!</p>
+            </div>
         </section>
+
+        <!-- ============================================================
+             CONTACT — NUOVO
+             ============================================================ -->
+        <section id="contact" aria-labelledby="contact-heading">
+            <h2 class="section-heading" id="contact-heading">Get in Touch</h2>
+            <p class="section-text">
+                I'm always open to new opportunities, collaborations, or just a friendly chat
+                about tech and cars. Feel free to reach out!
+            </p>
+            <a href="mailto:samuel@example.com" class="btn btn--primary" style="margin-top: 1rem;">
+                <i class="fas fa-paper-plane"></i> Say Hello
+            </a>
+        </section>
+
     </main>
 
+    <!-- ============================================================
+         FOOTER — NUOVO
+         ============================================================ -->
+    <footer class="site-footer">
+        <div class="container">
+            <ul class="social-links" aria-label="Social media links">
+                <li>
+                    <a href="https://github.com/SamHGT466" target="_blank" rel="noopener noreferrer"
+                       aria-label="GitHub profile">
+                        <i class="fab fa-github" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer"
+                       aria-label="LinkedIn profile">
+                        <i class="fab fa-linkedin" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:samuel@example.com" aria-label="Send email">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+            <p>&copy; 2025 Samuel. Built with passion and vanilla code.</p>
+        </div>
+    </footer>
+
+    <!-- Fallback: se JS è disabilitato, mostra tutte le sezioni -->
+    <noscript>
+        <style>
+            section { opacity: 1; transform: none; }
+            .loader { display: none; }
+        </style>
+    </noscript>
+
     <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        /* ============================================================
+           JAVASCRIPT — Modulare e pulito
+           ============================================================ */
+
+        // ---- Intersection Observer: anima sezioni al scroll ----
+        (() => {
+            const prefersReducedMotion = window.matchMedia(
+                '(prefers-reduced-motion: reduce)'
+            ).matches;
+
+            if (prefersReducedMotion) {
+                // Se l'utente prefers-reduced-motion, rendi tutto visibile subito
+                document.querySelectorAll('section').forEach(s => s.classList.add('visible'));
+                return;
+            }
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target); // Non ri-osservare
+                        }
+                    });
+                },
+                { threshold: 0.1 }
+            );
+
+            document.querySelectorAll('section').forEach((section) => {
+                observer.observe(section);
+            });
+        })();
+
+        // ---- Mobile Navigation Toggle ----
+        (() => {
+            const toggle   = document.querySelector('.navbar__toggle');
+            const menu     = document.getElementById('nav-menu');
+            const overlay  = document.getElementById('nav-overlay');
+            const menuIcon = document.getElementById('menu-icon');
+
+            function openMenu() {
+                menu.classList.add('open');
+                overlay.classList.add('active');
+                toggle.setAttribute('aria-expanded', 'true');
+                menuIcon.classList.replace('fa-bars', 'fa-times');
+            }
+
+            function closeMenu() {
+                menu.classList.remove('open');
+                overlay.classList.remove('active');
+                toggle.setAttribute('aria-expanded', 'false');
+                menuIcon.classList.replace('fa-times', 'fa-bars');
+            }
+
+            toggle.addEventListener('click', () => {
+                const isOpen = menu.classList.contains('open');
+                isOpen ? closeMenu() : openMenu();
+            });
+
+            overlay.addEventListener('click', closeMenu);
+
+            // Chiudi menu quando si clicca un link
+            menu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            // Chiudi menu con tasto Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && menu.classList.contains('open')) {
+                    closeMenu();
+                    toggle.focus(); // Riporta il focus al bottone
                 }
             });
-        }, { threshold: 0.1 });
+        })();
 
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
+        // ---- Caricamento Progetti da GitHub API ----
+        (() => {
+            const grid    = document.getElementById('projects-grid');
+            const loader  = document.getElementById('projects-loader');
+            const empty   = document.getElementById('projects-empty');
+            const MAX_REPOS = 6;
 
-        async function loadProjects() {
-            try {
-                const response = await fetch('https://api.github.com/users/SamHGT466/repos?sort=updated');
-                const repos = await response.json();
-                const projectsGrid = document.getElementById('projects-grid');
+            /**
+             * Crea una card progetto in modo sicuro (usa textContent, non innerHTML per dati utente)
+             */
+            function createProjectCard(repo) {
+                const card = document.createElement('article');
+                card.className = 'card';
+                card.setAttribute('role', 'listitem');
 
-                repos.slice(0, 6).forEach(repo => {
-                    if (!repo.fork) {
-                        const card = document.createElement('div');
-                        card.className = 'card';
-                        card.innerHTML = `
-                            <h3>${repo.name.replace(/-/g, ' ')}</h3>
-                            <p>${repo.description || 'Code in motion'}</p>
-                            <div class="project-meta">
-                                ${repo.language ? `<span class="skill-tag">${repo.language}</span>` : ''}
-                                <a href="${repo.html_url}" target="_blank" 
-                                   style="color: var(--secondary); margin-top: 1rem; display: inline-block;">
-                                   Explore Code <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div>
-                        `;
-                        projectsGrid.appendChild(card);
-                    }
-                });
-            } catch (error) {
-                console.error('Error loading projects:', error);
+                // Titolo sicuro (no XSS)
+                const title = document.createElement('h3');
+                title.textContent = repo.name.replace(/[-_]/g, ' ');
+                card.appendChild(title);
+
+                // Descrizione
+                const desc = document.createElement('p');
+                desc.textContent = repo.description || 'A coding project — check the repo for details.';
+                desc.style.color = 'var(--slate)';
+                desc.style.fontSize = '0.95rem';
+                desc.style.marginBottom = '0.5rem';
+                card.appendChild(desc);
+
+                // Meta: linguaggio + link
+                const meta = document.createElement('div');
+                meta.className = 'project-meta';
+
+                if (repo.language) {
+                    const lang = document.createElement('span');
+                    lang.className = 'skill-tag';
+                    lang.textContent = repo.language;
+                    meta.appendChild(lang);
+                }
+
+                // MODIFICA: aggiunto rel="noopener noreferrer" per sicurezza
+                const link = document.createElement('a');
+                link.href = repo.html_url;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.className = 'project-link';
+                link.innerHTML = 'Explore Code <i class="fas fa-external-link-alt" aria-hidden="true"></i>';
+                link.setAttribute('aria-label', `View ${repo.name} on GitHub`);
+                meta.appendChild(link);
+
+                card.appendChild(meta);
+                return card;
             }
-        }
 
-        loadProjects();
+            async function loadProjects() {
+                try {
+                    const response = await fetch(
+                        'https://api.github.com/users/SamHGT466/repos?sort=updated&per_page=10'
+                    );
+
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                    const repos = await response.json();
+
+                    // Nascondi loader
+                    loader.hidden = true;
+
+                    // Filtra fork e prendi i primi N
+                    const nonForks = repos.filter((r) => !r.fork).slice(0, MAX_REPOS);
+
+                    if (nonForks.length === 0) {
+                        empty.hidden = false;
+                        return;
+                    }
+
+                    nonForks.forEach((repo) => {
+                        grid.appendChild(createProjectCard(repo));
+                    });
+                } catch (error) {
+                    console.error('Failed to load projects:', error);
+                    loader.hidden = true;
+
+                    // MODIFICA: mostra messaggio di errore amichevole
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'empty-state';
+                    errorMsg.innerHTML =
+                        '<i class="fas fa-exclamation-triangle" aria-hidden="true"></i>' +
+                        '<p>Could not load projects right now. ' +
+                        '<a href="https://github.com/SamHGT466?tab=repositories" ' +
+                        'target="_blank" rel="noopener noreferrer">' +
+                        'View them on GitHub directly</a>.</p>';
+                    grid.after(errorMsg);
+                }
+            }
+
+            loadProjects();
+        })();
     </script>
+
 </body>
 </html>
