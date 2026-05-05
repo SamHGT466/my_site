@@ -2286,14 +2286,21 @@
             const HIDDEN_REPOS = ['MY_SITE'];
 
             /**
-             * Determine if a repo has GitHub Pages enabled.
+             * Determine the live demo URL for a repo.
+             *
+             * BUG FIX: The original code used `repo.has_pages` (a deprecated GitHub API
+             * field) and fell back to constructing a GitHub Pages URL manually with
+             * `.toLowerCase()` on the repo name. GitHub Pages URLs are case-sensitive
+             * for the repo name, so lowercasing produced 404s. Additionally, `has_pages`
+             * is unreliable — it can be undefined for repos that DO have Pages, or stale
+             * for repos that had Pages disabled.
+             *
+             * Fix: only trust `repo.homepage` — the user explicitly sets this URL in
+             * repo settings, so it's the only reliable indicator.
              */
             function getGitHubPagesUrl(repo) {
-                if (repo.has_pages) {
-                    if (repo.homepage && repo.homepage.startsWith('http')) {
-                        return repo.homepage;
-                    }
-                    return `https://${repo.owner.login.toLowerCase()}.github.io/${repo.name.toLowerCase()}/`;
+                if (repo.homepage && repo.homepage.trim().startsWith('http')) {
+                    return repo.homepage.trim();
                 }
                 return null;
             }
