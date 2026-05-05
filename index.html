@@ -5,20 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samuel | Software Developer</title>
 
+    <!-- MODIFICA: meta description più specifica per il portfolio -->
     <meta name="description"
           content="Portfolio of Samuel — IT student and software developer from Italy. Explore projects, skills, and get in touch.">
 
+    <!-- Font Awesome per icone -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
           integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLGPg8YJ04IY0iYIiQENRQ0ENzU6M6OxzZrjSKivKQ3WpzFmOsIxkPb7Q=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
 
+    <!-- MODIFICA: importiamo solo i pesi che usiamo effettivamente -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet">
 
     <style>
+        /* ============================================================
+           DESIGN TOKENS — Single source of truth per colori, font, spazi
+           ============================================================ */
         :root {
             --primary: #0a192f;
             --primary-light: #112240;
@@ -37,6 +43,9 @@
             --gap: 2rem;
         }
 
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
         *, *::before, *::after {
             margin: 0;
             padding: 0;
@@ -45,6 +54,7 @@
 
         html {
             scroll-behavior: smooth;
+            /* Compensa la nav fissa quando si clicca un anchor link */
             scroll-padding-top: 5rem;
         }
 
@@ -58,11 +68,13 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
+        /* NUOVO: selezione testo personalizzata */
         ::selection {
             background: rgba(100, 255, 218, 0.2);
             color: var(--secondary);
         }
 
+        /* Scrollbar personalizzata (Webkit) */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--primary); }
         ::-webkit-scrollbar-thumb {
@@ -70,8 +82,10 @@
             border-radius: 4px;
         }
 
+        /* Immagini fluide di default */
         img { max-width: 100%; height: auto; display: block; }
 
+        /* Link generici */
         a {
             color: var(--secondary);
             text-decoration: none;
@@ -79,18 +93,23 @@
         }
         a:hover { opacity: 0.85; }
 
+        /* NUOVO: Focus visibile per navigazione da tastiera (accessibilità) */
         :focus-visible {
             outline: 2px solid var(--secondary);
             outline-offset: 3px;
             border-radius: 2px;
         }
 
+        /* ============================================================
+           LAYOUT — Container & Sezioni
+           ============================================================ */
         .container {
             max-width: var(--max-width);
             margin: 0 auto;
             padding: 0 2rem;
         }
 
+        /* NUOVO: stilistica titoli sezione */
         .section-heading {
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
@@ -101,6 +120,7 @@
             gap: 0.75rem;
         }
 
+        /* Linea decorativa prima del titolo sezione */
         .section-heading::before {
             content: '';
             display: inline-block;
@@ -111,6 +131,7 @@
             flex-shrink: 0;
         }
 
+        /* NUOVO: stile per paragrafi corpo testo */
         .section-text {
             max-width: 640px;
             font-size: 1.05rem;
@@ -118,6 +139,8 @@
             margin-bottom: 1.5rem;
         }
 
+        /* Sezioni: animazione ingresso —
+           MODIFICA: se JS è disabilitato, le sezioni sono comunque visibili (grazie a noscript sotto) */
         section {
             padding: 6rem 0;
             opacity: 0;
@@ -130,7 +153,9 @@
             transform: translateY(0);
         }
 
-        /* NAVBAR */
+        /* ============================================================
+           NAVIGAZIONE
+           ============================================================ */
         .navbar {
             position: fixed;
             top: 0;
@@ -149,6 +174,7 @@
             align-items: center;
         }
 
+        /* NUOVO: Logo/nome nella navbar */
         .navbar__logo {
             font-size: 1.2rem;
             font-weight: 700;
@@ -192,6 +218,7 @@
             width: 100%;
         }
 
+        /* NUOVO: Hamburger menu button (visibile solo su mobile, tramite media query) */
         .navbar__toggle {
             display: none;
             background: none;
@@ -202,7 +229,9 @@
             padding: 0.25rem;
         }
 
-        /* HERO */
+        /* ============================================================
+           HERO / HEADER
+           ============================================================ */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -246,6 +275,7 @@
             line-height: 1.1;
         }
 
+        /* NUOVO: tagline sotto il nome */
         .hero__tagline {
             font-size: clamp(1rem, 2.5vw, 1.3rem);
             color: var(--slate);
@@ -253,6 +283,7 @@
             margin-bottom: 2rem;
         }
 
+        /* NUOVO: CTA buttons */
         .hero__actions {
             display: flex;
             gap: 1rem;
@@ -292,7 +323,9 @@
             transform: translateY(-2px);
         }
 
-        /* ABOUT */
+        /* ============================================================
+           ABOUT
+           ============================================================ */
         .about__grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -305,6 +338,7 @@
             margin-top: 1rem;
         }
 
+        /* NUOVO: card dettagli rapidi */
         .about__details {
             list-style: none;
             display: flex;
@@ -326,7 +360,9 @@
             text-align: center;
         }
 
-        /* SKILLS */
+        /* ============================================================
+           SKILLS
+           ============================================================ */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -371,6 +407,7 @@
             margin-bottom: 1rem;
         }
 
+        /* MODIFICA: tag skill adesso sono <span> semantici dentro una flex-wrap container */
         .skill-tags {
             display: flex;
             flex-wrap: wrap;
@@ -393,7 +430,9 @@
             background: rgba(100, 255, 218, 0.15);
         }
 
-        /* PROJECTS */
+        /* ============================================================
+           PROJECTS
+           ============================================================ */
         .project-meta {
             display: flex;
             align-items: center;
@@ -414,6 +453,7 @@
             text-decoration: underline;
         }
 
+        /* NUOVO: bottone "Live Demo" per repo con GitHub Pages attivo */
         .project-link--live {
             background: rgba(100, 255, 218, 0.12);
             color: var(--secondary);
@@ -428,6 +468,7 @@
             transform: translateY(-1px);
         }
 
+        /* NUOVO: indicatore di caricamento per progetti */
         .loader {
             text-align: center;
             padding: 3rem 0;
@@ -439,6 +480,7 @@
             animation: spin 1s linear infinite;
         }
 
+        /* NUOVO: messaggio di fallback se nessun progetto */
         .empty-state {
             text-align: center;
             padding: 3rem 1rem;
@@ -451,7 +493,9 @@
             color: var(--dark-slate);
         }
 
-        /* FOOTER */
+        /* ============================================================
+           FOOTER — NUOVO
+           ============================================================ */
         .site-footer {
             text-align: center;
             padding: 3rem 0;
@@ -482,7 +526,9 @@
             color: var(--dark-slate);
         }
 
-        /* ANIMATIONS */
+        /* ============================================================
+           ANIMAZIONI
+           ============================================================ */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50%      { transform: translateY(-16px); }
@@ -492,6 +538,7 @@
             to { transform: rotate(360deg); }
         }
 
+        /* NUOVO: rispetta preferenza utente per animazioni ridotte */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -501,18 +548,44 @@
             section { opacity: 1; transform: none; }
         }
 
-        /* RESPONSIVE */
-        @media (min-width: 769px) {
-            .navbar__toggle { display: none; }
+        /* ============================================================
+           RESPONSIVE — Mobile First
+           ============================================================ */
+
+        /* Tablet (768px+) */
+        @media (min-width: 768px) {
+            .about__grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
+        /* Desktop: reset del mobile hamburger, mostra nav links */
+        @media (min-width: 769px) {
+            .navbar__toggle {
+                display: none;
+            }
+        }
+
+        /* Mobile (max 768px) */
         @media (max-width: 768px) {
-            .container { padding: 0 1.25rem; }
-            section { padding: 4rem 0; }
-            .card-grid { grid-template-columns: 1fr; }
+            .container {
+                padding: 0 1.25rem;
+            }
 
-            .navbar__toggle { display: block; }
+            section {
+                padding: 4rem 0;
+            }
 
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Toggle hamburger visibile */
+            .navbar__toggle {
+                display: block;
+            }
+
+            /* Nav links: overlay fullscreen su mobile */
             .nav-links {
                 position: fixed;
                 top: 0;
@@ -529,9 +602,15 @@
                 box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
             }
 
-            .nav-links.open { transform: translateX(0); }
-            .nav-links a { font-size: 1.1rem; }
+            .nav-links.open {
+                transform: translateX(0);
+            }
 
+            .nav-links a {
+                font-size: 1.1rem;
+            }
+
+            /* Overlay scuro quando menu è aperto */
             .nav-overlay {
                 display: none;
                 position: fixed;
@@ -539,29 +618,56 @@
                 background: rgba(0, 0, 0, 0.5);
                 z-index: 999;
             }
-            .nav-overlay.active { display: block; }
+            .nav-overlay.active {
+                display: block;
+            }
 
+            /* About: stack verticale */
             .about__grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
         }
 
+        /* Schermi molto piccoli (max 480px) */
         @media (max-width: 480px) {
-            .container { padding: 0 1rem; }
-            .avatar { width: 140px; height: 140px; }
-            .hero__actions { flex-direction: column; align-items: center; }
-            .btn { width: 100%; max-width: 260px; justify-content: center; }
-            .card { padding: 1.5rem; }
+            .container {
+                padding: 0 1rem;
+            }
+
+            .avatar {
+                width: 140px;
+                height: 140px;
+            }
+
+            .hero__actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 260px;
+                justify-content: center;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- ============================================================
+         NAVBAR — Aggiunto logo, hamburger menu per mobile, overlay
+         ============================================================ -->
     <nav class="navbar" aria-label="Primary navigation">
         <div class="container navbar__inner">
+
             <a href="#" class="navbar__logo" aria-label="Samuel — Home">Sam<span>.</span></a>
 
+            <!-- Hamburger button (visibile solo su mobile via CSS) -->
             <button class="navbar__toggle"
                     aria-label="Toggle navigation menu"
                     aria-expanded="false"
@@ -578,10 +684,15 @@
         </div>
     </nav>
 
+    <!-- Overlay scuro per menu mobile -->
     <div class="nav-overlay" id="nav-overlay"></div>
 
+    <!-- ============================================================
+         HERO / HEADER — Migliorato con tagline e CTA
+         ============================================================ -->
     <header class="hero" id="hero">
         <div class="container hero__content">
+            <!-- MODIFICA: alt più descrittivo per accessibilità -->
             <img src="https://avatars.githubusercontent.com/u/182603417"
                  alt="Profile photo of Samuel, software developer"
                  class="avatar"
@@ -589,8 +700,11 @@
                  loading="eager">
 
             <h1 class="hero__name">Samuel</h1>
+
+            <!-- MODIFICA: tagline più professionale (vedi sezione micro-copy) -->
             <p class="hero__tagline">IT Student &amp; Aspiring Software Developer</p>
 
+            <!-- NUOVO: CTA buttons -->
             <div class="hero__actions">
                 <a href="#projects" class="btn btn--primary">
                     <i class="fas fa-code"></i> View Projects
@@ -602,12 +716,19 @@
         </div>
     </header>
 
+    <!-- ============================================================
+         MAIN CONTENT
+         ============================================================ -->
     <main class="container">
 
+        <!-- ============================================================
+             ABOUT — Layout a griglia con dettagli rapidi
+             ============================================================ -->
         <section id="about" aria-labelledby="about-heading">
             <h2 class="section-heading" id="about-heading">About Me</h2>
             <div class="about__grid">
                 <div class="about__text">
+                    <!-- MODIFICA: testo migliorato (vedi micro-copy) -->
                     <p class="section-text">
                         Hey there! I'm Samuel, an IT student from Italy with a deep passion
                         for software development and all things automotive. My journey into
@@ -644,6 +765,9 @@
             </div>
         </section>
 
+        <!-- ============================================================
+             SKILLS — Tag semantici <span> con flex-wrap
+             ============================================================ -->
         <section id="skills" aria-labelledby="skills-heading">
             <h2 class="section-heading" id="skills-heading">Technical Arsenal</h2>
             <p class="section-text">
@@ -681,24 +805,32 @@
             </div>
         </section>
 
+        <!-- ============================================================
+             PROJECTS — Caricati da GitHub API con loader e fallback
+             ============================================================ -->
         <section id="projects" aria-labelledby="projects-heading">
             <h2 class="section-heading" id="projects-heading">Engineering Showcase</h2>
             <p class="section-text">
                 A selection of projects from my GitHub — each one taught me something new.
             </p>
 
+            <!-- Loader: mostrato mentre i progetti caricano -->
             <div class="loader" id="projects-loader" aria-live="polite">
                 <i class="fas fa-circle-notch" aria-hidden="true"></i> Loading projects from GitHub...
             </div>
 
             <div class="card-grid" id="projects-grid" role="list" aria-label="GitHub projects"></div>
 
+            <!-- Empty state: mostrato se non ci sono progetti -->
             <div class="empty-state" id="projects-empty" hidden>
                 <i class="fas fa-folder-open" aria-hidden="true"></i>
                 <p>No public projects yet — check back soon!</p>
             </div>
         </section>
 
+        <!-- ============================================================
+             CONTACT — NUOVO
+             ============================================================ -->
         <section id="contact" aria-labelledby="contact-heading">
             <h2 class="section-heading" id="contact-heading">Get in Touch</h2>
             <p class="section-text">
@@ -712,6 +844,9 @@
 
     </main>
 
+    <!-- ============================================================
+         FOOTER — NUOVO
+         ============================================================ -->
     <footer class="site-footer">
         <div class="container">
             <ul class="social-links" aria-label="Social media links">
@@ -737,6 +872,7 @@
         </div>
     </footer>
 
+    <!-- Fallback: se JS è disabilitato, mostra tutte le sezioni -->
     <noscript>
         <style>
             section { opacity: 1; transform: none; }
@@ -745,13 +881,18 @@
     </noscript>
 
     <script>
-        // ---- Intersection Observer: animate sections on scroll ----
+        /* ============================================================
+           JAVASCRIPT — Modulare e pulito
+           ============================================================ */
+
+        // ---- Intersection Observer: anima sezioni al scroll ----
         (() => {
             const prefersReducedMotion = window.matchMedia(
                 '(prefers-reduced-motion: reduce)'
             ).matches;
 
             if (prefersReducedMotion) {
+                // Se l'utente prefers-reduced-motion, rendi tutto visibile subito
                 document.querySelectorAll('section').forEach(s => s.classList.add('visible'));
                 return;
             }
@@ -761,7 +902,7 @@
                     entries.forEach((entry) => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('visible');
-                            observer.unobserve(entry.target);
+                            observer.unobserve(entry.target); // Non ri-osservare
                         }
                     });
                 },
@@ -801,47 +942,62 @@
 
             overlay.addEventListener('click', closeMenu);
 
+            // Chiudi menu quando si clicca un link
             menu.querySelectorAll('a').forEach((link) => {
                 link.addEventListener('click', closeMenu);
             });
 
+            // Chiudi menu con tasto Escape
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && menu.classList.contains('open')) {
                     closeMenu();
-                    toggle.focus();
+                    toggle.focus(); // Riporta il focus al bottone
                 }
             });
         })();
 
-        // ---- Load Projects from GitHub API ----
+        // ---- Caricamento Progetti da GitHub API ----
         (() => {
             const grid    = document.getElementById('projects-grid');
             const loader  = document.getElementById('projects-loader');
             const empty   = document.getElementById('projects-empty');
             const MAX_REPOS = 6;
+            // Repo da nascondere completamente dalla lista
             const HIDDEN_REPOS = ['MY_SITE'];
 
             /**
-             * FIX: Only show a Live Demo button if the repo owner has explicitly
-             * set a homepage URL pointing to GitHub Pages. This is far more reliable
-             * than trusting the has_pages flag, which can be stale or misconfigured.
+             * Determina se la repo ha GitHub Pages attivo.
+             * Strategy:
+             *  1. L'API GitHub restituisce `has_pages: true` se Pages è abilitato.
+             *  2. Fallback: se `homepage` contiene un URL sospetto (github.io), usiamo quello.
+             *  3. Costruisce l'URL standard: https://<owner>.github.io/<repo>/
              */
             function getGitHubPagesUrl(repo) {
-                if (repo.homepage && repo.homepage.includes('github.io')) {
-                    return repo.homepage;
+                if (repo.has_pages) {
+                    // Se l'utente ha impostato un custom domain o URL nella sezione Pages
+                    if (repo.homepage && repo.homepage.startsWith('http')) {
+                        return repo.homepage;
+                    }
+                    // URL standard GitHub Pages: progetto.deployato su <owner>.github.io/<repo>
+                    return `https://${repo.owner.login.toLowerCase()}.github.io/${repo.name.toLowerCase()}/`;
                 }
                 return null;
             }
 
+            /**
+             * Crea una card progetto in modo sicuro (usa textContent, non innerHTML per dati utente)
+             */
             function createProjectCard(repo) {
                 const card = document.createElement('article');
                 card.className = 'card';
                 card.setAttribute('role', 'listitem');
 
+                // Titolo sicuro (no XSS)
                 const title = document.createElement('h3');
                 title.textContent = repo.name.replace(/[-_]/g, ' ');
                 card.appendChild(title);
 
+                // Descrizione
                 const desc = document.createElement('p');
                 desc.textContent = repo.description || 'A coding project — check the repo for details.';
                 desc.style.color = 'var(--slate)';
@@ -849,6 +1005,7 @@
                 desc.style.marginBottom = '0.5rem';
                 card.appendChild(desc);
 
+                // Meta: linguaggio + link
                 const meta = document.createElement('div');
                 meta.className = 'project-meta';
 
@@ -859,6 +1016,7 @@
                     meta.appendChild(lang);
                 }
 
+                // Rilevamento GitHub Pages → bottone "Live Demo"
                 const pagesUrl = getGitHubPagesUrl(repo);
                 if (pagesUrl) {
                     const liveLink = document.createElement('a');
@@ -871,6 +1029,7 @@
                     meta.appendChild(liveLink);
                 }
 
+                // Link al codice su GitHub
                 const link = document.createElement('a');
                 link.href = repo.html_url;
                 link.target = '_blank';
@@ -894,8 +1053,10 @@
 
                     const repos = await response.json();
 
+                    // Nascondi loader
                     loader.hidden = true;
 
+                    // Filtra fork, nascondi repo MY_SITE, poi prendi i primi N
                     const visible = repos
                         .filter((r) => !r.fork)
                         .filter((r) => !HIDDEN_REPOS.includes(r.name.toUpperCase()))
@@ -913,6 +1074,7 @@
                     console.error('Failed to load projects:', error);
                     loader.hidden = true;
 
+                    // MODIFICA: mostra messaggio di errore amichevole
                     const errorMsg = document.createElement('div');
                     errorMsg.className = 'empty-state';
                     errorMsg.innerHTML =
