@@ -3,44 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samuel | Software Developer</title>
+    <meta name="theme-color" content="#008080">
+    <meta name="color-scheme" content="light">
+    <title>Samuel | Software Developer — My Computer</title>
 
-    <!-- MODIFICA: meta description più specifica per il portfolio -->
     <meta name="description"
           content="Portfolio of Samuel — IT student and software developer from Italy. Explore projects, skills, and get in touch.">
 
     <!-- Font Awesome per icone -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-          integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLGPg8YJ04IY0iYIiQENRQ0ENzU6M6OxzZrjSKivKQ3WpzFmOsIxkPb7Q=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
-
-    <!-- MODIFICA: importiamo solo i pesi che usiamo effettivamente -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet">
 
     <style>
         /* ============================================================
-           DESIGN TOKENS — Single source of truth per colori, font, spazi
+           WINDOWS 9x / Y2K DESIGN TOKENS
            ============================================================ */
         :root {
-            --primary: #0a192f;
-            --primary-light: #112240;
-            --secondary: #64ffda;
-            --accent: #ccd6f6;
-            --text-body: #a8b2d1;
-            --slate: #8892b0;
-            --dark-slate: #495670;
-            --card-bg: rgba(17, 34, 64, 0.55);
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-                         Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            --transition-fast: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-            --transition-slow: opacity 0.6s ease-out, transform 0.6s ease-out;
-            --max-width: 1200px;
-            --radius: 12px;
-            --gap: 2rem;
+            /* Classic Win9x palette */
+            --win-bg:          #C0C0C0;
+            --win-text:        #000000;
+            --win-white:       #FFFFFF;
+            --win-light:       #DFDFDF;
+            --win-dark:        #808080;
+            --win-darker:      #404040;
+            --win-black:       #000000;
+
+            /* Title bar */
+            --title-active-start: #000080;
+            --title-active-end:   #1084D0;
+            --title-inactive:     #808080;
+
+            /* Y2K accents */
+            --y2k-teal:        #008080;
+            --y2k-teal-light:  #00A8A8;
+            --y2k-navy:        #000080;
+            --y2k-navy-light:  #4040FF;
+            --y2k-beige:       #FFFFCC;
+            --y2k-lavender:    #9999FF;
+            --y2k-hot-pink:    #FF66CC;
+            --y2k-lime:        #99FF66;
+            --y2k-orange:      #FF6600;
+            --y2k-gold:        #FFD700;
+            --yk2-red:         #CC0000;
+
+            /* Desktop */
+            --desktop-bg:      #008080;
+
+            /* Fonts */
+            --font-system: 'Tahoma', 'MS Sans Serif', 'Microsoft Sans Serif',
+                            'Arial', 'Helvetica', sans-serif;
+            --font-pixel:  'Tahoma', 'Verdana', 'MS Sans Serif', sans-serif;
+
+            /* Spacing */
+            --max-width: 1024px;
+            --gap: 12px;
+
+            /* Borders — Win9x beveled */
+            --raised-border: 2px outset var(--win-dark);
+            --sunken-border: 2px inset var(--win-dark);
+            --thin-raise:    1px outset var(--win-dark);
+            --thin-sunken:   1px inset var(--win-dark);
+
+            /* Period-appropriate transitions (step-based, not smooth) */
+            --transition-fast: none;
+            --transition-slow: none;
         }
 
         /* ============================================================
@@ -54,491 +81,1232 @@
 
         html {
             scroll-behavior: smooth;
-            /* Compensa la nav fissa quando si clicca un anchor link */
-            scroll-padding-top: 5rem;
+            scroll-padding-top: 80px;
         }
 
         body {
-            font-family: var(--font-sans);
-            background: var(--primary);
-            color: var(--text-body);
-            line-height: 1.7;
+            font-family: var(--font-system);
+            font-size: 11px;
+            line-height: 1.4;
+            color: var(--win-text);
+            background-color: var(--desktop-bg);
+            /* Dithered teal desktop background via repeating SVG pattern */
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23008080'/%3E%3Crect width='1' height='1' x='0' y='0' fill='%23007A7A' opacity='0.3'/%3E%3Crect width='1' height='1' x='2' y='2' fill='%23008686' opacity='0.3'/%3E%3Crect width='1' height='1' x='1' y='3' fill='%23007A7A' opacity='0.2'/%3E%3Crect width='1' height='1' x='3' y='1' fill='%23008686' opacity='0.2'/%3E%3C/svg%3E");
+            min-height: 100vh;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* NUOVO: selezione testo personalizzata */
         ::selection {
-            background: rgba(100, 255, 218, 0.2);
-            color: var(--secondary);
+            background: var(--y2k-navy);
+            color: var(--win-white);
         }
 
-        /* Scrollbar personalizzata (Webkit) */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--primary); }
+        /* Win9x Scrollbar */
+        ::-webkit-scrollbar { width: 16px; }
+        ::-webkit-scrollbar-track {
+            background: repeating-conic-gradient(var(--win-bg) 0% 25%, var(--win-light) 0% 50%) 0 0 / 2px 2px;
+        }
         ::-webkit-scrollbar-thumb {
-            background: var(--dark-slate);
-            border-radius: 4px;
+            background: var(--win-bg);
+            border: 2px outset var(--win-dark);
+        }
+        ::-webkit-scrollbar-button {
+            background: var(--win-bg);
+            border: 2px outset var(--win-dark);
+            display: block;
+            height: 16px;
         }
 
-        /* Immagini fluide di default */
         img { max-width: 100%; height: auto; display: block; }
 
-        /* Link generici */
         a {
-            color: var(--secondary);
+            color: var(--y2k-navy);
             text-decoration: none;
-            transition: var(--transition-fast);
+            cursor: pointer;
         }
-        a:hover { opacity: 0.85; }
+        a:hover {
+            color: var(--y2k-teal);
+        }
 
-        /* NUOVO: Focus visibile per navigazione da tastiera (accessibilità) */
         :focus-visible {
-            outline: 2px solid var(--secondary);
-            outline-offset: 3px;
-            border-radius: 2px;
+            outline: 1px dotted var(--win-black);
+            outline-offset: 2px;
         }
 
         /* ============================================================
-           LAYOUT — Container & Sezioni
+           WINDOWS CHROME COMPONENTS — Reusable Win9x primitives
+           ============================================================ */
+
+        /* Raised panel (standard window/dialog) */
+        .win-panel {
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+        }
+
+        /* Title bar */
+        .win-titlebar {
+            background: linear-gradient(90deg, var(--title-active-start), var(--title-active-end));
+            color: var(--win-white);
+            font-weight: bold;
+            font-size: 11px;
+            padding: 3px 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+        }
+        .win-titlebar--inactive {
+            background: linear-gradient(90deg, var(--title-inactive), #B5B5B5);
+        }
+        .win-titlebar__text {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-left: 2px;
+            font-size: 11px;
+            letter-spacing: 0.3px;
+        }
+        .win-titlebar__text img,
+        .win-titlebar__text i {
+            width: 16px;
+            height: 16px;
+            font-size: 12px;
+        }
+
+        /* Window control buttons (minimize, maximize, close) */
+        .win-controls {
+            display: flex;
+            gap: 2px;
+        }
+        .win-btn {
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+            width: 16px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            line-height: 1;
+            color: var(--win-black);
+            cursor: default;
+            padding: 0;
+            font-family: var(--font-system);
+        }
+        .win-btn:active {
+            border-color: var(--win-darker) var(--win-white) var(--win-white) var(--win-darker);
+            box-shadow: inset 1px 1px 0 var(--win-dark), inset -1px -1px 0 var(--win-light);
+        }
+        .win-btn--close {
+            background: var(--win-bg);
+        }
+
+        /* Status bar */
+        .win-statusbar {
+            border-top: 1px solid var(--win-dark);
+            background: var(--win-bg);
+            padding: 2px 4px;
+            font-size: 10px;
+            color: var(--win-dark);
+            display: flex;
+            justify-content: space-between;
+        }
+        .win-statusbar__field {
+            border: 1px solid;
+            border-color: var(--win-dark) var(--win-white) var(--win-white) var(--win-dark);
+            padding: 1px 4px;
+            min-width: 100px;
+        }
+
+        /* ============================================================
+           BUG FIX: Win9x Push Button — added display:inline-flex so
+           icon + text children align correctly with gap.
+           Previously the <a class="win-button"> elements had no flex
+           display, causing icons and text to sit on separate lines or
+           fail to center.
+           ============================================================ */
+        .win-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+            font-family: var(--font-system);
+            font-size: 11px;
+            padding: 4px 16px;
+            cursor: pointer;
+            color: var(--win-text);
+            outline: 1px dotted transparent;
+            text-align: center;
+        }
+        .win-button:active,
+        .win-button:active:hover {
+            border-color: var(--win-darker) var(--win-white) var(--win-white) var(--win-darker);
+            box-shadow: inset 1px 1px 0 var(--win-dark), inset -1px -1px 0 var(--win-light);
+            padding: 5px 15px 3px 17px;
+        }
+        .win-button:focus-visible {
+            outline: 1px dotted var(--win-black);
+            outline-offset: -4px;
+        }
+        .win-button:hover {
+            background: #D4D0C8;
+        }
+        .win-button--default {
+            outline: 1px solid var(--win-black);
+        }
+
+        /* Win9x Tab button (like taskbar buttons) */
+        .win-tab {
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+            font-family: var(--font-system);
+            font-size: 11px;
+            padding: 3px 12px;
+            cursor: pointer;
+            color: var(--win-text);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .win-tab:active {
+            border-color: var(--win-darker) var(--win-white) var(--win-white) var(--win-darker);
+            box-shadow: inset 1px 1px 0 var(--win-dark), inset -1px -1px 0 var(--win-light);
+        }
+        .win-tab--active {
+            border-color: var(--win-darker) var(--win-white) var(--win-white) var(--win-darker);
+            box-shadow: inset 1px 1px 0 var(--win-dark), inset -1px -1px 0 var(--win-light);
+            font-weight: bold;
+            background: #B0B0B0;
+        }
+
+        /* Sunken field (input boxes, content areas) */
+        .win-sunken {
+            border: 2px solid;
+            border-color: var(--win-dark) var(--win-white) var(--win-white) var(--win-dark);
+            box-shadow: inset 1px 1px 0 var(--win-darker);
+        }
+
+        /* Separator line (groove) */
+        .win-groove {
+            border: none;
+            border-top: 1px solid var(--win-dark);
+            border-bottom: 1px solid var(--win-white);
+            margin: 4px 2px;
+        }
+
+        /* ============================================================
+           LAYOUT
            ============================================================ */
         .container {
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 8px;
         }
 
-        /* NUOVO: stilistica titoli sezione */
+        /* Two-column layout: main content + sidebar (CSS Grid under the hood) */
+        .page-layout {
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 12px;
+            align-items: start;
+        }
+
+        /* Section heading — Win9x style */
         .section-heading {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 1rem;
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--win-text);
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 6px;
         }
-
-        /* Linea decorativa prima del titolo sezione */
         .section-heading::before {
             content: '';
             display: inline-block;
-            width: 40px;
-            height: 3px;
-            background: var(--secondary);
-            border-radius: 2px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid var(--y2k-navy);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
             flex-shrink: 0;
         }
 
-        /* NUOVO: stile per paragrafi corpo testo */
         .section-text {
             max-width: 640px;
-            font-size: 1.05rem;
-            color: var(--slate);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Sezioni: animazione ingresso —
-           MODIFICA: se JS è disabilitato, le sezioni sono comunque visibili (grazie a noscript sotto) */
-        section {
-            padding: 6rem 0;
-            opacity: 0;
-            transform: translateY(24px);
-            transition: var(--transition-slow);
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
+            font-size: 11px;
+            color: var(--win-text);
+            margin-bottom: 10px;
+            line-height: 1.5;
         }
 
         /* ============================================================
-           NAVIGAZIONE
+           BUG FIX: Sections — added transition property so opacity
+           fade works (previously opacity: 0 with no transition meant
+           sections stayed invisible if IntersectionObserver failed).
+           Also added a tiny transition for authenticity.
+           ============================================================ */
+        section {
+            padding: 20px 0;
+            opacity: 0;
+            transform: none;
+            transition: opacity 0.15s steps(2, end);
+        }
+        section.visible {
+            opacity: 1;
+        }
+
+        /* ============================================================
+           NAVBAR — Win9x Taskbar style
            ============================================================ */
         .navbar {
             position: fixed;
-            top: 0;
+            bottom: 0;
+            left: 0;
             width: 100%;
-            background: rgba(10, 25, 47, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: var(--win-bg);
+            border-top: 2px solid var(--win-white);
             z-index: 1000;
-            padding: 1.25rem 0;
-            border-bottom: 1px solid rgba(100, 255, 218, 0.05);
+            padding: 2px 4px;
+            /* Taskbar beveled edge */
+            box-shadow: inset 0 1px 0 var(--win-dark);
         }
 
         .navbar__inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: var(--max-width);
+            margin: 0 auto;
         }
 
-        /* NUOVO: Logo/nome nella navbar */
+        /* Start button */
         .navbar__logo {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: -0.02em;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 11px;
+            font-weight: bold;
+            color: var(--win-text);
+            padding: 3px 8px;
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+            cursor: pointer;
         }
-        .navbar__logo span {
-            color: var(--secondary);
+        .navbar__logo:active {
+            border-color: var(--win-darker) var(--win-white) var(--win-white) var(--win-darker);
+            box-shadow: inset 1px 1px 0 var(--win-dark), inset -1px -1px 0 var(--win-light);
+        }
+        .navbar__logo .win-logo-icon {
+            width: 16px;
+            height: 16px;
+            background: var(--y2k-teal);
+            display: inline-block;
+            border: 1px solid var(--win-dark);
+            position: relative;
+            overflow: hidden;
+        }
+        .navbar__logo .win-logo-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: var(--y2k-navy);
+        }
+        .navbar__logo .win-logo-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            bottom: 0;
+            width: 50%;
+            background: var(--y2k-teal);
+        }
+        .navbar__logo span.logo-text {
+            color: var(--y2k-hot-pink);
         }
 
+        /* Taskbar navigation tabs */
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 2px;
             list-style: none;
+            height: 22px;
         }
 
         .nav-links a {
-            color: var(--accent);
-            font-size: 0.9rem;
-            font-weight: 500;
-            position: relative;
-            padding: 0.4rem 0;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
+            color: var(--win-text);
+            font-size: 11px;
+            font-weight: normal;
+            padding: 2px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            height: 100%;
         }
-
-        .nav-links a::after {
+        .nav-links a::before {
             content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background: var(--secondary);
-            border-radius: 1px;
-            transition: var(--transition-fast);
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: var(--win-bg);
+            border: 1px solid var(--win-dark);
+            font-size: 9px;
+        }
+        .nav-links li:nth-child(1) a::before { content: '\f007'; font-family: 'Font Awesome 6 Free'; font-weight: 400; text-align: center; line-height: 14px; }
+        .nav-links li:nth-child(2) a::before { content: '\f0e7'; font-family: 'Font Awesome 6 Free'; font-weight: 900; text-align: center; line-height: 14px; }
+        .nav-links li:nth-child(3) a::before { content: '\f1b3'; font-family: 'Font Awesome 6 Free'; font-weight: 900; text-align: center; line-height: 14px; }
+        .nav-links li:nth-child(4) a::before { content: '\f0e0'; font-family: 'Font Awesome 6 Free'; font-weight: 900; text-align: center; line-height: 14px; }
+
+        .nav-links li {
+            height: 100%;
         }
 
-        .nav-links a:hover::after,
-        .nav-links a:focus-visible::after {
-            width: 100%;
+        .nav-links li a {
+            display: inline-flex;
+            align-items: center;
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+            height: 100%;
+        }
+        .nav-links li a:hover {
+            background: #D0D0D0;
+        }
+        .nav-links li a:active {
+            border-color: var(--win-darker) var(--win-white) var(--win-white) var(--win-darker);
+            box-shadow: inset 1px 1px 0 var(--win-dark), inset -1px -1px 0 var(--win-light);
+            background: #B0B0B0;
         }
 
-        /* NUOVO: Hamburger menu button (visibile solo su mobile, tramite media query) */
+        /* Hamburger menu — mobile only */
         .navbar__toggle {
             display: none;
-            background: none;
-            border: none;
-            color: var(--accent);
-            font-size: 1.5rem;
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+            color: var(--win-text);
+            font-size: 14px;
             cursor: pointer;
-            padding: 0.25rem;
+            padding: 2px 6px;
+            font-family: var(--font-system);
+        }
+
+        /* System tray area (clock) */
+        .navbar__tray {
+            font-size: 10px;
+            color: var(--win-text);
+            padding: 2px 8px;
+            border: 1px solid;
+            border-color: var(--win-dark) var(--win-white) var(--win-white) var(--win-dark);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--win-bg);
+        }
+        .navbar__tray i {
+            font-size: 10px;
+            color: var(--y2k-navy);
         }
 
         /* ============================================================
-           HERO / HEADER
+           HERO / HEADER — "My Computer" window
            ============================================================ */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            background: linear-gradient(160deg, var(--primary) 0%, #020c1b 100%);
+            padding: 20px 8px 60px;
             text-align: center;
         }
 
         .hero__content {
             position: relative;
             z-index: 1;
+            width: 100%;
+            max-width: 520px;
+        }
+
+        /* Desktop icon double-click style */
+        .avatar-wrapper {
+            display: inline-block;
+            margin-bottom: 12px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .avatar-wrapper:active .avatar-label {
+            background: var(--y2k-navy);
+            color: var(--win-white);
         }
 
         .avatar {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 3px solid var(--secondary);
-            margin: 0 auto 2rem;
+            width: 64px;
+            height: 64px;
+            border-radius: 0;
+            border: none;
+            margin: 0 auto 4px;
             object-fit: cover;
-            transition: var(--transition-fast);
-            animation: float 6s ease-in-out infinite;
+            image-rendering: pixelated;
+            /* Win9x icon shadow */
+            filter: drop-shadow(1px 1px 0 var(--win-black));
         }
 
-        .avatar:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(100, 255, 218, 0.25);
+        .avatar-label {
+            display: inline-block;
+            padding: 1px 4px;
+            font-size: 10px;
+            color: var(--win-white);
+            text-shadow: 1px 1px 0 var(--win-black);
+            max-width: 80px;
+            word-wrap: break-word;
         }
 
         .hero__name {
-            font-size: clamp(2.8rem, 7vw, 4.5rem);
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            background: linear-gradient(135deg, var(--accent) 30%, var(--secondary) 100%);
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--win-text);
+            margin-bottom: 6px;
+            padding: 8px;
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+        }
+        /* Y2K gradient text inside the name box */
+        .hero__name .y2k-gradient {
+            background: linear-gradient(90deg, var(--y2k-teal), var(--y2k-lavender), var(--y2k-hot-pink), var(--y2k-teal));
+            background-size: 200% 100%;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
+            animation: y2k-shimmer 4s linear infinite;
+            font-style: italic;
+            font-size: 18px;
         }
 
-        /* NUOVO: tagline sotto il nome */
         .hero__tagline {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            color: var(--slate);
-            font-weight: 400;
-            margin-bottom: 2rem;
+            font-size: 11px;
+            color: var(--y2k-navy);
+            font-weight: normal;
+            margin-bottom: 12px;
+            font-style: italic;
         }
 
-        /* NUOVO: CTA buttons */
+        /* Marquee-style Y2K scrolling text */
+        .hero__marquee {
+            background: var(--y2k-navy);
+            color: var(--y2k-lime);
+            font-size: 10px;
+            padding: 2px 0;
+            margin-bottom: 12px;
+            border: 1px solid var(--win-dark);
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        .hero__marquee-text {
+            display: inline-block;
+            animation: marquee-scroll 20s linear infinite;
+        }
+        .hero__marquee-text .y2k-star {
+            color: var(--y2k-hot-pink);
+        }
+
         .hero__actions {
             display: flex;
-            gap: 1rem;
+            gap: 6px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--radius);
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-fast);
-            border: none;
-        }
-
-        .btn--primary {
-            background: var(--secondary);
-            color: var(--primary);
-        }
-        .btn--primary:hover {
-            box-shadow: 0 4px 20px rgba(100, 255, 218, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .btn--outline {
-            background: transparent;
-            color: var(--secondary);
-            border: 1.5px solid var(--secondary);
-        }
-        .btn--outline:hover {
-            background: rgba(100, 255, 218, 0.1);
-            transform: translateY(-2px);
-        }
-
         /* ============================================================
-           ABOUT
+           ABOUT — Window with title bar
            ============================================================ */
+        .about-window {
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+        }
+
         .about__grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 12px;
             align-items: start;
-            margin-top: 2rem;
+            margin-top: 8px;
+            padding: 8px;
         }
 
         .about__text p + p {
-            margin-top: 1rem;
+            margin-top: 8px;
         }
 
-        /* NUOVO: card dettagli rapidi */
         .about__details {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 6px;
+            background: var(--win-white);
+            border: 1px solid var(--win-dark);
+            padding: 6px;
         }
 
         .about__details li {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            font-size: 0.95rem;
-            color: var(--slate);
+            gap: 6px;
+            font-size: 11px;
+            color: var(--win-text);
+            padding: 2px 0;
+        }
+        .about__details li + li {
+            border-top: 1px dotted var(--win-dark);
+            padding-top: 4px;
         }
 
         .about__details li i {
-            color: var(--secondary);
-            width: 20px;
+            color: var(--y2k-navy);
+            width: 14px;
             text-align: center;
+            font-size: 11px;
         }
 
         /* ============================================================
-           SKILLS
+           SKILLS — Windows with tabs
            ============================================================ */
+        .skills-window {
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+        }
+
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--gap);
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 8px;
+            margin-top: 8px;
+            padding: 8px;
         }
 
         .card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: var(--radius);
-            border: 1px solid var(--dark-slate);
-            transition: var(--transition-fast);
+            background: var(--win-bg);
+            padding: 0;
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
             position: relative;
             overflow: hidden;
         }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            background: linear-gradient(135deg, var(--secondary), transparent, var(--primary));
-            z-index: -1;
-            opacity: 0;
-            transition: var(--transition-fast);
-            border-radius: var(--radius);
-        }
-
         .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--secondary);
+            /* Slight highlight on hover — period-appropriate */
+            border-color: var(--win-white) var(--win-dark) var(--win-dark) var(--win-white);
         }
 
-        .card:hover::before {
-            opacity: 1;
+        /* Mini title bar inside each card */
+        .card__titlebar {
+            background: linear-gradient(90deg, var(--title-active-start), var(--title-active-end));
+            color: var(--win-white);
+            font-weight: bold;
+            font-size: 10px;
+            padding: 2px 3px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .card__titlebar-text {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 10px;
+        }
+        .card__titlebar-text i {
+            font-size: 10px;
+        }
+
+        .card__body {
+            padding: 8px;
         }
 
         .card h3 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 1rem;
+            font-size: 11px;
+            font-weight: bold;
+            color: var(--win-text);
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--win-dark);
         }
 
-        /* MODIFICA: tag skill adesso sono <span> semantici dentro una flex-wrap container */
         .skill-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 4px;
         }
 
         .skill-tag {
             display: inline-block;
-            padding: 0.4rem 0.9rem;
-            background: rgba(100, 255, 218, 0.08);
-            color: var(--secondary);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid rgba(100, 255, 218, 0.25);
-            transition: var(--transition-fast);
+            padding: 2px 8px;
+            background: var(--win-white);
+            color: var(--win-text);
+            font-size: 10px;
+            font-weight: normal;
+            border: 1px solid var(--win-dark);
+            font-family: var(--font-system);
+            cursor: default;
         }
-
         .skill-tag:hover {
-            background: rgba(100, 255, 218, 0.15);
+            background: var(--y2k-navy);
+            color: var(--win-white);
+            border-color: var(--win-darker);
         }
 
         /* ============================================================
-           PROJECTS
+           PROJECTS — "My Documents" explorer style
            ============================================================ */
+        .projects-window {
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+        }
+
+        /* Explorer toolbar */
+        .explorer-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            padding: 3px 4px;
+            border-bottom: 1px solid var(--win-dark);
+            background: var(--win-bg);
+            flex-wrap: wrap;
+        }
+        .explorer-toolbar__btn {
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+            font-family: var(--font-system);
+            font-size: 10px;
+            padding: 2px 6px;
+            cursor: pointer;
+            color: var(--win-text);
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .explorer-toolbar__btn:active {
+            border-color: var(--win-darker) var(--win-white) var(--win-white) var(--win-darker);
+        }
+        .explorer-toolbar__sep {
+            width: 1px;
+            height: 20px;
+            border-left: 1px solid var(--win-dark);
+            border-right: 1px solid var(--win-white);
+            margin: 0 2px;
+        }
+        .explorer-addressbar {
+            border: 1px solid;
+            border-color: var(--win-dark) var(--win-white) var(--win-white) var(--win-dark);
+            background: var(--win-white);
+            padding: 2px 6px;
+            font-size: 10px;
+            color: var(--win-text);
+            flex: 1;
+            min-width: 150px;
+            font-family: var(--font-system);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .explorer-addressbar i {
+            color: var(--win-text);
+            font-size: 10px;
+        }
+
         .project-meta {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-top: 1.25rem;
+            gap: 6px;
+            margin-top: 8px;
             flex-wrap: wrap;
         }
 
         .project-link {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
-            color: var(--secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
+            gap: 3px;
+            color: var(--y2k-navy);
+            font-size: 10px;
+            font-weight: normal;
+            text-decoration: underline;
+            cursor: pointer;
         }
         .project-link:hover {
-            text-decoration: underline;
+            color: var(--y2k-teal);
         }
 
-        /* NUOVO: bottone "Live Demo" per repo con GitHub Pages attivo */
         .project-link--live {
-            background: rgba(100, 255, 218, 0.12);
-            color: var(--secondary);
-            padding: 0.35rem 0.85rem;
-            border-radius: 6px;
-            border: 1px solid rgba(100, 255, 218, 0.3);
+            background: var(--win-bg);
+            color: var(--win-text);
+            padding: 2px 8px;
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
             text-decoration: none;
+            font-family: var(--font-system);
+            font-size: 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
         }
         .project-link--live:hover {
-            background: rgba(100, 255, 218, 0.22);
-            text-decoration: none;
-            transform: translateY(-1px);
+            background: #D0D0D0;
+            color: var(--win-text);
         }
-
-        /* NUOVO: indicatore di caricamento per progetti */
-        .loader {
-            text-align: center;
-            padding: 3rem 0;
-            color: var(--slate);
-            font-size: 0.95rem;
-        }
-        .loader i {
-            margin-right: 0.5rem;
-            animation: spin 1s linear infinite;
-        }
-
-        /* NUOVO: messaggio di fallback se nessun progetto */
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: var(--slate);
-        }
-        .empty-state i {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            display: block;
-            color: var(--dark-slate);
+        .project-link--live:active {
+            border-color: var(--win-darker) var(--win-white) var(--win-white) var(--win-darker);
+            box-shadow: inset 1px 1px 0 var(--win-dark), inset -1px -1px 0 var(--win-light);
         }
 
         /* ============================================================
-           FOOTER — NUOVO
+           RETRO ADDITION: "NEW!" beveled badge for projects
+           ============================================================ */
+        .badge-new {
+            display: inline-block;
+            font-size: 8px;
+            font-weight: bold;
+            color: var(--win-white);
+            background: var(--yk2-red);
+            padding: 0 4px;
+            border: 1px solid;
+            border-color: var(--win-darker) var(--win-white) var(--win-white) var(--win-darker);
+            margin-left: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: blink-badge 1.5s steps(1, end) infinite;
+            vertical-align: middle;
+        }
+
+        .loader {
+            text-align: center;
+            padding: 16px 0;
+            color: var(--win-text);
+            font-size: 11px;
+        }
+        .loader i {
+            margin-right: 4px;
+            animation: spin 1s steps(8, end) infinite;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 20px 8px;
+            color: var(--win-text);
+            font-size: 11px;
+        }
+        .empty-state i {
+            font-size: 24px;
+            margin-bottom: 6px;
+            display: block;
+            color: var(--win-dark);
+        }
+
+        /* ============================================================
+           CONTACT
+           ============================================================ */
+        .contact-window {
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+        }
+
+        /* ============================================================
+           RETRO ADDITION: Sidebar — Quick Links & Info Panel
+           Mimics the classic Win9x Explorer sidebar / web directory
+           panel found on late-90s personal home pages.
+           ============================================================ */
+        .sidebar {
+            position: sticky;
+            top: 8px;
+        }
+
+        .sidebar-window {
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+            margin-bottom: 10px;
+        }
+
+        .sidebar__links {
+            list-style: none;
+            padding: 4px;
+        }
+        .sidebar__links li {
+            margin-bottom: 1px;
+        }
+        .sidebar__links a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 6px;
+            font-size: 11px;
+            color: var(--win-text);
+            background: var(--win-white);
+            border: 1px solid var(--win-dark);
+        }
+        .sidebar__links a:hover {
+            background: var(--y2k-navy);
+            color: var(--win-white);
+        }
+        .sidebar__links a i {
+            width: 14px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--y2k-navy);
+        }
+        .sidebar__links a:hover i {
+            color: var(--win-white);
+        }
+
+        /* Sidebar "Cool Links" section */
+        .sidebar__coollinks {
+            padding: 4px;
+        }
+        .sidebar__coollinks a {
+            display: block;
+            font-size: 10px;
+            color: var(--y2k-navy);
+            padding: 2px 4px;
+            border-bottom: 1px dotted var(--win-dark);
+        }
+        .sidebar__coollinks a:hover {
+            color: var(--y2k-hot-pink);
+            background: var(--win-white);
+        }
+        .sidebar__coollinks a:last-child {
+            border-bottom: none;
+        }
+
+        /* ============================================================
+           RETRO ADDITION: Rainbow HR divider — the classic web divider
+           ============================================================ */
+        .rainbow-hr {
+            border: none;
+            height: 4px;
+            background: linear-gradient(90deg,
+                #FF0000, #FF7700, #FFFF00, #00FF00,
+                #0000FF, #8B00FF, #FF0000);
+            background-size: 200% 100%;
+            margin: 6px 0;
+            border: 1px solid var(--win-dark);
+        }
+
+        /* ============================================================
+           RETRO ADDITION: Spinning email GIF equivalent (pure CSS)
+           ============================================================ */
+        .spinning-envelope {
+            display: inline-block;
+            animation: spin 3s linear infinite;
+            color: var(--y2k-navy);
+            font-size: 16px;
+        }
+
+        /* ============================================================
+           RETRO ADDITION: "Best Viewed In" browser badge area
+           ============================================================ */
+        .browser-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            padding: 6px 8px;
+        }
+        .browser-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 9px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
+            background: var(--win-bg);
+            color: var(--win-text);
+            cursor: default;
+            white-space: nowrap;
+        }
+        .browser-badge i {
+            font-size: 10px;
+            color: var(--y2k-navy);
+        }
+
+        /* ============================================================
+           RETRO ADDITION: Webring footer section
+           ============================================================ */
+        .webring {
+            border: 2px solid;
+            border-color: var(--win-dark) var(--win-white) var(--win-white) var(--win-dark);
+            background: var(--win-white);
+            padding: 6px 8px;
+            margin: 6px 8px;
+            font-size: 10px;
+            color: var(--win-text);
+            text-align: center;
+        }
+        .webring-links {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .webring-links a {
+            font-size: 10px;
+            color: var(--y2k-navy);
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        .webring-links a:hover {
+            color: var(--y2k-teal);
+        }
+
+        /* ============================================================
+           RETRO ADDITION: Guestbook link styling
+           ============================================================ */
+        .guestbook-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            color: var(--win-white);
+            background: linear-gradient(90deg, var(--y2k-teal), var(--y2k-navy));
+            padding: 3px 12px;
+            border: 2px solid var(--win-dark);
+            margin-top: 6px;
+        }
+        .guestbook-link:hover {
+            color: var(--y2k-gold);
+        }
+        .guestbook-link i {
+            font-size: 11px;
+        }
+
+        /* ============================================================
+           RETRO ADDITION: Last updated timestamp
+           ============================================================ */
+        .last-updated {
+            font-size: 9px;
+            color: var(--win-dark);
+            font-style: italic;
+            padding: 2px 8px;
+        }
+        .last-updated i {
+            color: var(--y2k-orange);
+            margin-right: 2px;
+        }
+
+        /* ============================================================
+           FOOTER — Win9x style
            ============================================================ */
         .site-footer {
             text-align: center;
-            padding: 3rem 0;
-            border-top: 1px solid rgba(100, 255, 218, 0.08);
-            margin-top: 2rem;
+            padding: 12px 0 50px;
+            margin-top: 8px;
+        }
+
+        .footer-window {
+            max-width: 400px;
+            margin: 0 auto;
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 4px;
             list-style: none;
-            margin-bottom: 1.5rem;
+            margin-bottom: 6px;
+            padding: 8px 8px 0;
+            flex-wrap: wrap;
         }
 
         .social-links a {
-            color: var(--slate);
-            font-size: 1.25rem;
-            transition: var(--transition-fast);
+            color: var(--win-text);
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 22px;
+            background: var(--win-bg);
+            border: 2px solid;
+            border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
+            box-shadow: inset 1px 1px 0 var(--win-light), inset -1px -1px 0 var(--win-dark);
         }
         .social-links a:hover {
-            color: var(--secondary);
-            transform: translateY(-2px);
+            background: #D0D0D0;
+            color: var(--y2k-navy);
+        }
+        .social-links a:active {
+            border-color: var(--win-darker) var(--win-white) var(--win-white) var(--win-darker);
+            box-shadow: inset 1px 1px 0 var(--win-dark), inset -1px -1px 0 var(--win-light);
         }
 
         .site-footer p {
-            font-size: 0.85rem;
-            color: var(--dark-slate);
+            font-size: 10px;
+            color: var(--win-dark);
+            padding: 4px 8px;
+        }
+
+        /* Y2K visitor counter badge — enhanced with segment-display style */
+        .visitor-badge {
+            display: inline-block;
+            background: var(--win-black);
+            color: var(--y2k-lime);
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            padding: 1px 6px;
+            border: 2px solid;
+            border-color: var(--win-darker) var(--win-white) var(--win-white) var(--win-darker);
+            margin-top: 4px;
+            letter-spacing: 2px;
+        }
+
+        /* Y2K "Under Construction" banner — enhanced */
+        .y2k-construction {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--y2k-beige);
+            color: var(--win-black);
+            font-size: 9px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border: 1px solid var(--win-dark);
+            font-style: normal;
+            animation: blink-bg 1.2s steps(1, end) infinite;
+        }
+        .y2k-construction i {
+            font-size: 9px;
+            color: var(--y2k-orange);
+            animation: blink-bg 1.2s steps(1, end) infinite;
+        }
+
+        /* Y2K separator stars */
+        .y2k-divider {
+            text-align: center;
+            padding: 4px 0;
+            font-size: 8px;
+            color: var(--y2k-lavender);
+            letter-spacing: 4px;
+            user-select: none;
+        }
+
+        /* Y2K skewed accent text */
+        .y2k-skew {
+            display: inline-block;
+            transform: skewX(-8deg);
+            font-style: italic;
+            color: var(--y2k-hot-pink);
+            font-weight: bold;
         }
 
         /* ============================================================
-           ANIMAZIONI
+           ANIMATIONS — Period-appropriate (step-based, not smooth)
            ============================================================ */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50%      { transform: translateY(-16px); }
+            50%      { transform: translateY(-4px); }
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        /* NUOVO: rispetta preferenza utente per animazioni ridotte */
+        @keyframes marquee-scroll {
+            0%   { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        @keyframes y2k-shimmer {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        @keyframes blink-bg {
+            0%, 49% { background: var(--y2k-beige); }
+            50%, 100% { background: #FFCC99; }
+        }
+
+        @keyframes blink-badge {
+            0%, 60% { opacity: 1; }
+            61%, 100% { opacity: 0.4; }
+        }
+
+        @keyframes blink-cursor {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white); }
+            50% { border-color: var(--y2k-lavender) var(--y2k-navy) var(--y2k-navy) var(--y2k-lavender); }
+        }
+
+        .blink-cursor::after {
+            content: '_';
+            animation: blink-cursor 1s steps(1, end) infinite;
+            color: var(--y2k-navy);
+        }
+
+        /* Animated sparkle dots — decorative element from that era */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .sparkle-dot {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background: var(--y2k-gold);
+            border-radius: 0;
+            animation: sparkle 1.5s steps(1, end) infinite;
+            vertical-align: middle;
+            margin: 0 2px;
+        }
+        .sparkle-dot:nth-child(2) { animation-delay: 0.3s; background: var(--y2k-hot-pink); }
+        .sparkle-dot:nth-child(3) { animation-delay: 0.6s; background: var(--y2k-lime); }
+        .sparkle-dot:nth-child(4) { animation-delay: 0.9s; background: var(--y2k-lavender); }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -549,95 +1317,140 @@
         }
 
         /* ============================================================
-           RESPONSIVE — Mobile First
+           RESPONSIVE
            ============================================================ */
 
-        /* Tablet (768px+) */
-        @media (min-width: 768px) {
-            .about__grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        /* Desktop: reset del mobile hamburger, mostra nav links */
         @media (min-width: 769px) {
             .navbar__toggle {
                 display: none;
             }
         }
 
-        /* Mobile (max 768px) */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 1.25rem;
+        @media (max-width: 900px) {
+            /* Collapse to single column on tablets */
+            .page-layout {
+                grid-template-columns: 1fr;
             }
+            .sidebar {
+                position: static;
+            }
+        }
 
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: 50px;
+            }
+            .container {
+                padding: 0 4px;
+            }
             section {
-                padding: 4rem 0;
+                padding: 12px 0;
             }
 
             .card-grid {
                 grid-template-columns: 1fr;
             }
 
-            /* Toggle hamburger visibile */
+            .about__grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Mobile: navbar becomes more compact */
+            .navbar {
+                padding: 2px 2px;
+            }
+            .nav-links a {
+                font-size: 10px;
+                padding: 2px 6px;
+            }
+            .navbar__tray {
+                font-size: 9px;
+                padding: 2px 4px;
+            }
+            .nav-links li:nth-child(1) a::before,
+            .nav-links li:nth-child(2) a::before,
+            .nav-links li:nth-child(3) a::before,
+            .nav-links li:nth-child(4) a::before {
+                display: none;
+            }
+
+            /* Toggle hamburger visible */
             .navbar__toggle {
                 display: block;
             }
 
-            /* Nav links: overlay fullscreen su mobile */
+            /* Nav links: overlay fullscreen on mobile */
             .nav-links {
                 position: fixed;
-                top: 0;
-                right: 0;
-                width: min(300px, 75vw);
-                height: 100vh;
+                bottom: 28px;
+                left: 0;
+                width: 100%;
                 flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2rem;
-                background: var(--primary-light);
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+                justify-content: flex-start;
+                align-items: stretch;
+                gap: 0;
+                background: var(--win-bg);
+                border-top: 2px solid var(--win-white);
+                border-bottom: 2px solid var(--win-darker);
+                transform: translateY(100%);
+                max-height: 0;
+                overflow: hidden;
+                height: auto;
             }
 
             .nav-links.open {
-                transform: translateX(0);
+                transform: translateY(0);
+                max-height: 200px;
+                border: 2px solid;
+                border-color: var(--win-white) var(--win-darker) var(--win-darker) var(--win-white);
             }
 
             .nav-links a {
-                font-size: 1.1rem;
+                font-size: 11px;
+                border: none;
+                border-bottom: 1px solid var(--win-dark);
+                box-shadow: none;
+                height: auto;
+                padding: 6px 10px;
+            }
+            .nav-links a:hover {
+                background: var(--y2k-navy);
+                color: var(--win-white);
             }
 
-            /* Overlay scuro quando menu è aperto */
             .nav-overlay {
                 display: none;
                 position: fixed;
                 inset: 0;
-                background: rgba(0, 0, 0, 0.5);
+                background: rgba(0, 0, 0, 0.3);
                 z-index: 999;
             }
             .nav-overlay.active {
                 display: block;
             }
 
-            /* About: stack verticale */
-            .about__grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            /* Desktop icons go side by side */
+            .hero__content {
+                max-width: 100%;
+            }
+
+            .explorer-toolbar {
+                flex-wrap: wrap;
+                gap: 2px;
+            }
+            .explorer-addressbar {
+                min-width: 100px;
+                font-size: 9px;
+            }
+
+            .browser-badges {
+                flex-wrap: wrap;
             }
         }
 
-        /* Schermi molto piccoli (max 480px) */
         @media (max-width: 480px) {
             .container {
-                padding: 0 1rem;
-            }
-
-            .avatar {
-                width: 140px;
-                height: 140px;
+                padding: 0 2px;
             }
 
             .hero__actions {
@@ -645,14 +1458,13 @@
                 align-items: center;
             }
 
-            .btn {
+            .win-button {
                 width: 100%;
-                max-width: 260px;
-                justify-content: center;
+                max-width: 200px;
             }
 
-            .card {
-                padding: 1.5rem;
+            .card__body {
+                padding: 6px;
             }
         }
     </style>
@@ -660,14 +1472,18 @@
 <body>
 
     <!-- ============================================================
-         NAVBAR — Aggiunto logo, hamburger menu per mobile, overlay
+         NAVBAR — Win9x Taskbar (bottom of screen)
          ============================================================ -->
     <nav class="navbar" aria-label="Primary navigation">
-        <div class="container navbar__inner">
+        <div class="navbar__inner">
 
-            <a href="#" class="navbar__logo" aria-label="Samuel — Home">Sam<span>.</span></a>
+            <!-- Start button -->
+            <a href="#" class="navbar__logo" aria-label="Samuel — Home">
+                <span class="win-logo-icon" aria-hidden="true"></span>
+                <span class="logo-text">Start</span>
+            </a>
 
-            <!-- Hamburger button (visibile solo su mobile via CSS) -->
+            <!-- Hamburger button (mobile only) -->
             <button class="navbar__toggle"
                     aria-label="Toggle navigation menu"
                     aria-expanded="false"
@@ -675,180 +1491,592 @@
                 <i class="fas fa-bars" id="menu-icon"></i>
             </button>
 
-            <ul class="nav-links" id="nav-menu" role="list">
+            <ul class="nav-links" id="nav-menu">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+
+            <!-- System tray -->
+            <div class="navbar__tray" aria-hidden="true">
+                <i class="fas fa-volume-up"></i>
+                <span id="taskbar-clock">12:00 AM</span>
+            </div>
         </div>
     </nav>
 
-    <!-- Overlay scuro per menu mobile -->
-    <div class="nav-overlay" id="nav-overlay"></div>
+    <!-- Overlay for mobile menu -->
+    <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
 
     <!-- ============================================================
-         HERO / HEADER — Migliorato con tagline e CTA
+         HERO — Desktop icon + Welcome window
          ============================================================ -->
     <header class="hero" id="hero">
         <div class="container hero__content">
-            <!-- MODIFICA: alt più descrittivo per accessibilità -->
-            <img src="https://avatars.githubusercontent.com/u/182603417"
-                 alt="Profile photo of Samuel, software developer"
-                 class="avatar"
-                 width="180" height="180"
-                 loading="eager">
 
-            <h1 class="hero__name">Samuel</h1>
+            <!-- Desktop icon style -->
+            <div class="avatar-wrapper" role="img" aria-label="Samuel's desktop icon">
+                <img src="https://avatars.githubusercontent.com/u/182603417"
+                     alt="Profile photo of Samuel, software developer"
+                     class="avatar"
+                     width="64" height="64"
+                     loading="eager"
+                     style="image-rendering: auto;">
+                <span class="avatar-label">Samuel.exe</span>
+            </div>
 
-            <!-- MODIFICA: tagline più professionale (vedi sezione micro-copy) -->
-            <p class="hero__tagline">IT Student &amp; Aspiring Software Developer</p>
+            <!-- Y2K marquee banner -->
+            <div class="hero__marquee" role="marquee" aria-label="Scrolling welcome message">
+                <span class="hero__marquee-text">
+                    <span class="y2k-star">&#9733;</span>
+                    Welcome to Samuel's Portfolio v2.0!
+                    <span class="y2k-star">&#9733;</span>
+                    Best viewed in 1024x768
+                    <span class="y2k-star">&#9733;</span>
+                    Netscape Navigator / Internet Explorer 5.0+
+                    <span class="y2k-star">&#9733;</span>
+                    &lt;-- You are visitor #
+                    <span class="visitor-badge" id="visitor-count" aria-label="Visitor counter">000000</span>
+                    --&gt;
+                    <span class="y2k-star">&#9733;</span>
+                </span>
+            </div>
 
-            <!-- NUOVO: CTA buttons -->
-            <div class="hero__actions">
-                <a href="#projects" class="btn btn--primary">
-                    <i class="fas fa-code"></i> View Projects
-                </a>
-                <a href="#contact" class="btn btn--outline">
-                    <i class="fas fa-envelope"></i> Get in Touch
-                </a>
+            <!-- Window: Welcome -->
+            <div class="win-panel" style="margin-bottom: 8px;">
+                <div class="win-titlebar">
+                    <span class="win-titlebar__text">
+                        <i class="fas fa-desktop" aria-hidden="true"></i>
+                        Welcome!
+                    </span>
+                    <div class="win-controls" aria-hidden="true">
+                        <button class="win-btn" aria-label="Minimize" tabindex="-1">_</button>
+                        <button class="win-btn" aria-label="Maximize" tabindex="-1">&#9633;</button>
+                        <button class="win-btn win-btn--close" aria-label="Close" tabindex="-1">&times;</button>
+                    </div>
+                </div>
+                <div style="padding: 10px; text-align: center;">
+                    <h1 class="hero__name"><span class="y2k-gradient">Samuel</span></h1>
+                    <p class="hero__tagline">
+                        IT Student &amp; Aspiring Software Developer
+                    </p>
+
+                    <!-- Decorative sparkle dots -->
+                    <div style="margin: 6px 0;" aria-hidden="true">
+                        <span class="sparkle-dot"></span>
+                        <span class="sparkle-dot"></span>
+                        <span class="sparkle-dot"></span>
+                        <span class="sparkle-dot"></span>
+                    </div>
+
+                    <div class="hero__actions">
+                        <a href="#projects" class="win-button win-button--default">
+                            <i class="fas fa-code" aria-hidden="true"></i> View Projects
+                        </a>
+                        <a href="#contact" class="win-button">
+                            <i class="fas fa-envelope" aria-hidden="true"></i> Get in Touch
+                        </a>
+                    </div>
+                    <div style="margin-top: 8px;">
+                        <span class="y2k-construction">
+                            <i class="fas fa-hard-hat" aria-hidden="true"></i>
+                            Always Under Construction!
+                        </span>
+                    </div>
+
+                    <!-- Browser compatibility badges -->
+                    <div class="browser-badges" aria-label="Browser compatibility">
+                        <span class="browser-badge">
+                            <i class="fab fa-internet-explorer" aria-hidden="true"></i>
+                            IE 5.0+
+                        </span>
+                        <span class="browser-badge">
+                            <i class="fab fa-firefox-browser" aria-hidden="true"></i>
+                            NS 4.7+
+                        </span>
+                        <span class="browser-badge">
+                            <i class="fas fa-desktop" aria-hidden="true"></i>
+                            1024x768
+                        </span>
+                    </div>
+                </div>
+                <div class="win-statusbar">
+                    <span class="win-statusbar__field">Ready</span>
+                    <span class="win-statusbar__field">
+                        <i class="fas fa-keyboard" style="font-size:9px;" aria-hidden="true"></i>
+                        &nbsp;Caps: OFF &nbsp; Num: ON
+                    </span>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- ============================================================
-         MAIN CONTENT
+         MAIN CONTENT — Two-column layout (main + sidebar)
          ============================================================ -->
     <main class="container">
+        <div class="page-layout">
 
-        <!-- ============================================================
-             ABOUT — Layout a griglia con dettagli rapidi
-             ============================================================ -->
-        <section id="about" aria-labelledby="about-heading">
-            <h2 class="section-heading" id="about-heading">About Me</h2>
-            <div class="about__grid">
-                <div class="about__text">
-                    <!-- MODIFICA: testo migliorato (vedi micro-copy) -->
-                    <p class="section-text">
-                        Hey there! I'm Samuel, an IT student from Italy with a deep passion
-                        for software development and all things automotive. My journey into
-                        tech started years ago, tinkering with my old Samsung Galaxy J3 (2016)
-                        — customizing it to the core until there was nothing left to mod. That
-                        curiosity eventually led me from ROMs and kernels to code editors and
-                        compilers.
-                    </p>
-                    <p class="section-text">
-                        Today I write code in C++, Python, JavaScript, and C#, and I'm always
-                        looking for new challenges. Whether it's building a school project or
-                        experimenting with a new framework, I believe the best way to learn is
-                        by building things and breaking them — repeatedly.
-                    </p>
+            <!-- ============================================================
+                 LEFT COLUMN: Main content sections
+                 ============================================================ -->
+            <div class="main-content">
+
+                <!-- ============================================================
+                     ABOUT — Window: About Me
+                     ============================================================ -->
+                <section id="about" aria-labelledby="about-heading">
+                    <div class="about-window">
+                        <div class="win-titlebar">
+                            <span class="win-titlebar__text">
+                                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                                About Me — Notepad
+                            </span>
+                            <div class="win-controls" aria-hidden="true">
+                                <button class="win-btn" tabindex="-1">_</button>
+                                <button class="win-btn" tabindex="-1">&#9633;</button>
+                                <button class="win-btn win-btn--close" tabindex="-1">&times;</button>
+                            </div>
+                        </div>
+
+                        <!-- Menu bar -->
+                        <div style="padding: 2px 4px; border-bottom: 1px solid var(--win-dark); display: flex; gap: 0;" role="menubar" aria-label="Notepad menu">
+                            <span style="padding: 1px 8px; font-size: 10px; cursor: default;" role="menuitem">File</span>
+                            <span style="padding: 1px 8px; font-size: 10px; cursor: default;" role="menuitem">Edit</span>
+                            <span style="padding: 1px 8px; font-size: 10px; cursor: default;" role="menuitem">Search</span>
+                            <span style="padding: 1px 8px; font-size: 10px; cursor: default;" role="menuitem">Help</span>
+                        </div>
+
+                        <div class="about__grid">
+                            <div class="about__text">
+                                <h2 class="section-heading" id="about-heading">About Me</h2>
+                                <p class="section-text">
+                                    Hey there! I'm Samuel, an IT student from Italy with a deep passion
+                                    for software development and all things automotive. My journey into
+                                    tech started years ago, tinkering with my old Samsung Galaxy J3 (2016)
+                                    — customizing it to the core until there was nothing left to mod. That
+                                    curiosity eventually led me from ROMs and kernels to code editors and
+                                    compilers.
+                                </p>
+                                <p class="section-text">
+                                    Today I write code in C++, Python, JavaScript, and C#, and I'm always
+                                    looking for new challenges. Whether it's building a school project or
+                                    experimenting with a new framework, I believe the best way to learn is
+                                    by building things and breaking them — repeatedly.
+                                </p>
+                            </div>
+                            <ul class="about__details" aria-label="Quick facts about Samuel">
+                                <li>
+                                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                                    <span>Italy</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                                    <span>IT Student</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-car" aria-hidden="true"></i>
+                                    <span>Cars &amp; Motorbikes Enthusiast</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-code-branch" aria-hidden="true"></i>
+                                    <span>Open to Collaborations</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="win-statusbar">
+                            <span class="win-statusbar__field">about.txt — Notepad</span>
+                            <span class="win-statusbar__field">Ln 1, Col 1</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Rainbow divider -->
+                <div class="rainbow-hr" aria-hidden="true"></div>
+
+                <!-- ============================================================
+                     SKILLS — Window: Control Panel
+                     ============================================================ -->
+                <section id="skills" aria-labelledby="skills-heading">
+                    <div class="skills-window">
+                        <div class="win-titlebar">
+                            <span class="win-titlebar__text">
+                                <i class="fas fa-th-large" aria-hidden="true"></i>
+                                Technical Arsenal — Control Panel
+                            </span>
+                            <div class="win-controls" aria-hidden="true">
+                                <button class="win-btn" tabindex="-1">_</button>
+                                <button class="win-btn" tabindex="-1">&#9633;</button>
+                                <button class="win-btn win-btn--close" tabindex="-1">&times;</button>
+                            </div>
+                        </div>
+
+                        <div style="padding: 8px 8px 0;">
+                            <h2 class="section-heading" id="skills-heading">Technical Arsenal</h2>
+                            <p class="section-text">
+                                The languages and tools I work with daily — and the ones I'm still mastering.
+                                <span class="y2k-skew">[ Level Up! ]</span>
+                            </p>
+                        </div>
+
+                        <div class="card-grid">
+                            <article class="card">
+                                <div class="card__titlebar">
+                                    <span class="card__titlebar-text">
+                                        <i class="fas fa-laptop-code" aria-hidden="true"></i>
+                                        Core Stack
+                                    </span>
+                                    <div class="win-controls" aria-hidden="true">
+                                        <button class="win-btn" tabindex="-1">_</button>
+                                        <button class="win-btn" tabindex="-1">&#9633;</button>
+                                        <button class="win-btn win-btn--close" tabindex="-1">&times;</button>
+                                    </div>
+                                </div>
+                                <div class="card__body">
+                                    <h3><i class="fas fa-laptop-code" aria-hidden="true"></i> Core Stack</h3>
+                                    <div class="skill-tags" aria-label="Programming languages">
+                                        <span class="skill-tag">C++</span>
+                                        <span class="skill-tag">Python</span>
+                                        <span class="skill-tag">JavaScript</span>
+                                        <span class="skill-tag">C#</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="card">
+                                <div class="card__titlebar">
+                                    <span class="card__titlebar-text">
+                                        <i class="fas fa-tools" aria-hidden="true"></i>
+                                        Tools &amp; IDEs
+                                    </span>
+                                    <div class="win-controls" aria-hidden="true">
+                                        <button class="win-btn" tabindex="-1">_</button>
+                                        <button class="win-btn" tabindex="-1">&#9633;</button>
+                                        <button class="win-btn win-btn--close" tabindex="-1">&times;</button>
+                                    </div>
+                                </div>
+                                <div class="card__body">
+                                    <h3><i class="fas fa-tools" aria-hidden="true"></i> Tools &amp; IDEs</h3>
+                                    <div class="skill-tags" aria-label="Development tools">
+                                        <span class="skill-tag">Visual Studio</span>
+                                        <span class="skill-tag">Rider</span>
+                                        <span class="skill-tag">PyCharm</span>
+                                        <span class="skill-tag">Git &amp; GitHub</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="card">
+                                <div class="card__titlebar">
+                                    <span class="card__titlebar-text">
+                                        <i class="fas fa-book-open" aria-hidden="true"></i>
+                                        Currently Learning
+                                    </span>
+                                    <div class="win-controls" aria-hidden="true">
+                                        <button class="win-btn" tabindex="-1">_</button>
+                                        <button class="win-btn" tabindex="-1">&#9633;</button>
+                                        <button class="win-btn win-btn--close" tabindex="-1">&times;</button>
+                                    </div>
+                                </div>
+                                <div class="card__body">
+                                    <h3><i class="fas fa-book-open" aria-hidden="true"></i> Currently Learning <span class="badge-new">new!</span></h3>
+                                    <div class="skill-tags" aria-label="Technologies I'm learning">
+                                        <span class="skill-tag">Web Development</span>
+                                        <span class="skill-tag">Data Structures</span>
+                                        <span class="skill-tag">Algorithms</span>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div class="win-statusbar">
+                            <span class="win-statusbar__field">8 object(s)</span>
+                            <span class="win-statusbar__field blink-cursor">Ready</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Rainbow divider -->
+                <div class="rainbow-hr" aria-hidden="true"></div>
+
+                <!-- ============================================================
+                     PROJECTS — Window: My Documents / Explorer
+                     ============================================================ -->
+                <section id="projects" aria-labelledby="projects-heading">
+                    <div class="projects-window">
+                        <div class="win-titlebar">
+                            <span class="win-titlebar__text">
+                                <i class="fas fa-folder-open" aria-hidden="true"></i>
+                                Engineering Showcase — My Documents
+                            </span>
+                            <div class="win-controls" aria-hidden="true">
+                                <button class="win-btn" tabindex="-1">_</button>
+                                <button class="win-btn" tabindex="-1">&#9633;</button>
+                                <button class="win-btn win-btn--close" tabindex="-1">&times;</button>
+                            </div>
+                        </div>
+
+                        <!-- Explorer toolbar -->
+                        <div class="explorer-toolbar" role="toolbar" aria-label="Explorer toolbar">
+                            <button class="explorer-toolbar__btn" aria-label="Back">
+                                <i class="fas fa-arrow-left" aria-hidden="true"></i> Back
+                            </button>
+                            <button class="explorer-toolbar__btn" aria-label="Forward">
+                                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </button>
+                            <div class="explorer-toolbar__sep" aria-hidden="true"></div>
+                            <button class="explorer-toolbar__btn" aria-label="Search">
+                                <i class="fas fa-search" aria-hidden="true"></i> Search
+                            </button>
+                            <button class="explorer-toolbar__btn" aria-label="Folders">
+                                <i class="fas fa-folder" aria-hidden="true"></i> Folders
+                            </button>
+                            <div class="explorer-addressbar">
+                                <i class="fas fa-globe" aria-hidden="true"></i>
+                                <span>https://github.com/SamHGT466</span>
+                            </div>
+                        </div>
+
+                        <div style="padding: 8px;">
+                            <h2 class="section-heading" id="projects-heading">Engineering Showcase</h2>
+                            <p class="section-text">
+                                A selection of projects from my GitHub — each one taught me something new.
+                                <span class="y2k-skew">[ Browse All ]</span>
+                            </p>
+
+                            <!-- Loader -->
+                            <div class="loader" id="projects-loader" aria-live="polite">
+                                <i class="fas fa-circle-notch" aria-hidden="true"></i> Loading projects from GitHub...
+                            </div>
+
+                            <div class="card-grid" id="projects-grid" aria-label="GitHub projects"></div>
+
+                            <!-- Empty state -->
+                            <div class="empty-state" id="projects-empty" hidden>
+                                <i class="fas fa-folder-open" aria-hidden="true"></i>
+                                <p>No public projects yet — check back soon!</p>
+                            </div>
+                        </div>
+
+                        <div class="win-statusbar">
+                            <span class="win-statusbar__field" id="projects-status-count">0 object(s)</span>
+                            <span class="win-statusbar__field">My Documents</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Rainbow divider -->
+                <div class="rainbow-hr" aria-hidden="true"></div>
+
+                <!-- ============================================================
+                     CONTACT — Window: Outlook Express style
+                     ============================================================ -->
+                <section id="contact" aria-labelledby="contact-heading">
+                    <div class="contact-window">
+                        <div class="win-titlebar">
+                            <span class="win-titlebar__text">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                                Get in Touch — New Message
+                            </span>
+                            <div class="win-controls" aria-hidden="true">
+                                <button class="win-btn" tabindex="-1">_</button>
+                                <button class="win-btn" tabindex="-1">&#9633;</button>
+                                <button class="win-btn win-btn--close" tabindex="-1">&times;</button>
+                            </div>
+                        </div>
+
+                        <div style="padding: 10px;">
+                            <h2 class="section-heading" id="contact-heading">Get in Touch</h2>
+                            <p class="section-text">
+                                I'm always open to new opportunities, collaborations, or just a friendly chat
+                                about tech and cars. Feel free to reach out!
+                            </p>
+
+                            <!-- Fake email form fields (decorative) -->
+                            <div style="margin-bottom: 6px; font-size: 10px;">
+                                <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
+                                    <label for="email-to" style="font-weight: bold; min-width: 50px;">To:</label>
+                                    <span class="win-sunken" style="padding: 2px 4px; flex: 1; font-size: 10px; background: var(--win-white);" id="email-to">
+                                        linuxgaming466@gmail.com
+                                    </span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <label for="email-subject" style="font-weight: bold; min-width: 50px;">Subject:</label>
+                                    <span class="win-sunken" style="padding: 2px 4px; flex: 1; font-size: 10px; background: var(--win-white); color: var(--win-dark);" id="email-subject">
+                                        Let's collaborate!
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-top: 8px;">
+                                <a href="mailto:linuxgaming466@gmail.com" class="win-button win-button--default">
+                                    <i class="fas fa-paper-plane" aria-hidden="true"></i> Send Message
+                                </a>
+                                <span class="spinning-envelope" aria-hidden="true">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="win-statusbar">
+                            <span class="win-statusbar__field">New Message</span>
+                            <span class="win-statusbar__field blink-cursor">Ready</span>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- ============================================================
+                 RIGHT COLUMN: Sidebar — Navigation & Quick Info
+                 Retro addition: mimics the sidebar panels from late-90s
+                 personal home pages (Angelfire, GeoCities, etc.)
+                 ============================================================ -->
+            <aside class="sidebar" aria-label="Sidebar">
+
+                <!-- Quick Navigation window -->
+                <div class="sidebar-window">
+                    <div class="win-titlebar">
+                        <span class="win-titlebar__text">
+                            <i class="fas fa-compass" aria-hidden="true"></i>
+                            Quick Nav
+                        </span>
+                        <div class="win-controls" aria-hidden="true">
+                            <button class="win-btn" tabindex="-1">_</button>
+                            <button class="win-btn win-btn--close" tabindex="-1">&times;</button>
+                        </div>
+                    </div>
+                    <ul class="sidebar__links">
+                        <li><a href="#hero"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+                        <li><a href="#about"><i class="fas fa-user" aria-hidden="true"></i> About Me</a></li>
+                        <li><a href="#skills"><i class="fas fa-bolt" aria-hidden="true"></i> Skills</a></li>
+                        <li><a href="#projects"><i class="fas fa-folder-open" aria-hidden="true"></i> Projects</a></li>
+                        <li><a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+                    </ul>
+                    <div class="win-statusbar">
+                        <span class="win-statusbar__field">5 link(s)</span>
+                    </div>
                 </div>
-                <ul class="about__details" aria-label="Quick facts about Samuel">
-                    <li>
-                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                        <span>Italy</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-                        <span>IT Student</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-car" aria-hidden="true"></i>
-                        <span>Cars &amp; Motorbikes Enthusiast</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-code-branch" aria-hidden="true"></i>
-                        <span>Open to Collaborations</span>
-                    </li>
-                </ul>
-            </div>
-        </section>
 
-        <!-- ============================================================
-             SKILLS — Tag semantici <span> con flex-wrap
-             ============================================================ -->
-        <section id="skills" aria-labelledby="skills-heading">
-            <h2 class="section-heading" id="skills-heading">Technical Arsenal</h2>
-            <p class="section-text">
-                The languages and tools I work with daily — and the ones I'm still mastering.
-            </p>
-            <div class="card-grid">
-                <article class="card">
-                    <h3><i class="fas fa-laptop-code" aria-hidden="true"></i> Core Stack</h3>
-                    <div class="skill-tags" role="list" aria-label="Programming languages">
-                        <span class="skill-tag" role="listitem">C++</span>
-                        <span class="skill-tag" role="listitem">Python</span>
-                        <span class="skill-tag" role="listitem">JavaScript</span>
-                        <span class="skill-tag" role="listitem">C#</span>
+                <!-- System Info window -->
+                <div class="sidebar-window">
+                    <div class="win-titlebar">
+                        <span class="win-titlebar__text">
+                            <i class="fas fa-info-circle" aria-hidden="true"></i>
+                            System Info
+                        </span>
+                        <div class="win-controls" aria-hidden="true">
+                            <button class="win-btn" tabindex="-1">_</button>
+                            <button class="win-btn win-btn--close" tabindex="-1">&times;</button>
+                        </div>
                     </div>
-                </article>
-
-                <article class="card">
-                    <h3><i class="fas fa-tools" aria-hidden="true"></i> Tools &amp; IDEs</h3>
-                    <div class="skill-tags" role="list" aria-label="Development tools">
-                        <span class="skill-tag" role="listitem">Visual Studio</span>
-                        <span class="skill-tag" role="listitem">Rider</span>
-                        <span class="skill-tag" role="listitem">PyCharm</span>
-                        <span class="skill-tag" role="listitem">Git &amp; GitHub</span>
+                    <div style="padding: 6px; font-size: 10px;">
+                        <div style="display: flex; justify-content: space-between; padding: 2px 0; border-bottom: 1px dotted var(--win-dark);">
+                            <span style="color: var(--win-dark);">OS:</span>
+                            <span>Windows 98 SE</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 2px 0; border-bottom: 1px dotted var(--win-dark);">
+                            <span style="color: var(--win-dark);">Browser:</span>
+                            <span>IE 5.5</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 2px 0; border-bottom: 1px dotted var(--win-dark);">
+                            <span style="color: var(--win-dark);">Resolution:</span>
+                            <span>1024x768</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 2px 0; border-bottom: 1px dotted var(--win-dark);">
+                            <span style="color: var(--win-dark);">Colors:</span>
+                            <span>True Color (32-bit)</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 2px 0;">
+                            <span style="color: var(--win-dark);">Uptime:</span>
+                            <span id="system-uptime">0d 0h 0m</span>
+                        </div>
                     </div>
-                </article>
-
-                <article class="card">
-                    <h3><i class="fas fa-book-open" aria-hidden="true"></i> Currently Learning</h3>
-                    <div class="skill-tags" role="list" aria-label="Technologies I'm learning">
-                        <span class="skill-tag" role="listitem">Web Development</span>
-                        <span class="skill-tag" role="listitem">Data Structures</span>
-                        <span class="skill-tag" role="listitem">Algorithms</span>
+                    <div class="win-statusbar">
+                        <span class="win-statusbar__field">System Properties</span>
                     </div>
-                </article>
-            </div>
-        </section>
+                </div>
 
-        <!-- ============================================================
-             PROJECTS — Caricati da GitHub API con loader e fallback
-             ============================================================ -->
-        <section id="projects" aria-labelledby="projects-heading">
-            <h2 class="section-heading" id="projects-heading">Engineering Showcase</h2>
-            <p class="section-text">
-                A selection of projects from my GitHub — each one taught me something new.
-            </p>
+                <!-- Cool Links window — a staple of late-90s home pages -->
+                <div class="sidebar-window">
+                    <div class="win-titlebar win-titlebar--inactive">
+                        <span class="win-titlebar__text">
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            Cool Links!
+                        </span>
+                        <div class="win-controls" aria-hidden="true">
+                            <button class="win-btn" tabindex="-1">_</button>
+                            <button class="win-btn win-btn--close" tabindex="-1">&times;</button>
+                        </div>
+                    </div>
+                    <div class="sidebar__coollinks">
+                        <a href="https://github.com/SamHGT466" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github" aria-hidden="true"></i> My GitHub
+                        </a>
+                        <a href="https://developer.mozilla.org/" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-book" aria-hidden="true"></i> MDN Web Docs
+                        </a>
+                        <a href="https://www.w3schools.com/" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-graduation-cap" aria-hidden="true"></i> W3Schools
+                        </a>
+                        <a href="https://stackoverflow.com/" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-stack-overflow" aria-hidden="true"></i> Stack Overflow
+                        </a>
+                    </div>
+                    <div class="win-statusbar">
+                        <span class="win-statusbar__field">Favorites</span>
+                    </div>
+                </div>
 
-            <!-- Loader: mostrato mentre i progetti caricano -->
-            <div class="loader" id="projects-loader" aria-live="polite">
-                <i class="fas fa-circle-notch" aria-hidden="true"></i> Loading projects from GitHub...
-            </div>
+                <!-- Guestbook window -->
+                <div class="sidebar-window">
+                    <div class="win-titlebar win-titlebar--inactive">
+                        <span class="win-titlebar__text">
+                            <i class="fas fa-book" aria-hidden="true"></i>
+                            Guestbook
+                        </span>
+                        <div class="win-controls" aria-hidden="true">
+                            <button class="win-btn" tabindex="-1">_</button>
+                            <button class="win-btn win-btn--close" tabindex="-1">&times;</button>
+                        </div>
+                    </div>
+                    <div style="padding: 8px; text-align: center;">
+                        <p style="font-size: 10px; margin-bottom: 4px;">
+                            Sign my guestbook!
+                        </p>
+                        <a href="mailto:linuxgaming466@gmail.com?subject=Guestbook%20Entry" class="guestbook-link" aria-label="Sign the guestbook">
+                            <i class="fas fa-pen" aria-hidden="true"></i> Sign It!
+                        </a>
+                        <p style="font-size: 9px; color: var(--win-dark); margin-top: 4px;">
+                            <span id="guestbook-count">42</span> entries so far
+                        </p>
+                    </div>
+                </div>
 
-            <div class="card-grid" id="projects-grid" role="list" aria-label="GitHub projects"></div>
+            </aside>
 
-            <!-- Empty state: mostrato se non ci sono progetti -->
-            <div class="empty-state" id="projects-empty" hidden>
-                <i class="fas fa-folder-open" aria-hidden="true"></i>
-                <p>No public projects yet — check back soon!</p>
-            </div>
-        </section>
-
-        <!-- ============================================================
-             CONTACT — NUOVO
-             ============================================================ -->
-        <section id="contact" aria-labelledby="contact-heading">
-            <h2 class="section-heading" id="contact-heading">Get in Touch</h2>
-            <p class="section-text">
-                I'm always open to new opportunities, collaborations, or just a friendly chat
-                about tech and cars. Feel free to reach out!
-            </p>
-            <a href="mailto:linuxgaming466@gmail.com" class="btn btn--primary" style="margin-top: 1rem;">
-                <i class="fas fa-paper-plane"></i> Say Hello
-            </a>
-        </section>
-
+        </div>
     </main>
 
     <!-- ============================================================
-         FOOTER — NUOVO
+         FOOTER — Window: System info
          ============================================================ -->
     <footer class="site-footer">
-        <div class="container">
+        <div class="footer-window">
+            <div class="win-titlebar win-titlebar--inactive">
+                <span class="win-titlebar__text">
+                    <i class="fas fa-info-circle" aria-hidden="true"></i>
+                    System Properties
+                </span>
+                <div class="win-controls" aria-hidden="true">
+                    <button class="win-btn" tabindex="-1">_</button>
+                    <button class="win-btn" tabindex="-1">&#9633;</button>
+                    <button class="win-btn win-btn--close" tabindex="-1">&times;</button>
+                </div>
+            </div>
+
             <ul class="social-links" aria-label="Social media links">
                 <li>
                     <a href="https://github.com/SamHGT466" target="_blank" rel="noopener noreferrer"
@@ -857,8 +2085,11 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer"
-                       aria-label="LinkedIn profile">
+                    <!--
+                        BUG FIX: LinkedIn URL was incomplete (href="https://linkedin.com/in/" with no username).
+                        Updated to # as a placeholder — replace with actual profile URL when available.
+                    -->
+                    <a href="#" aria-label="LinkedIn profile">
                         <i class="fab fa-linkedin" aria-hidden="true"></i>
                     </a>
                 </li>
@@ -868,31 +2099,120 @@
                     </a>
                 </li>
             </ul>
-            <p>&copy; 2025 Samuel. Built with passion and vanilla code.</p>
+
+            <!-- Retro webring -->
+            <div class="webring" aria-label="Webring navigation">
+                <i class="fas fa-ring" style="color: var(--y2k-gold);" aria-hidden="true"></i>
+                <strong>This site is part of the</strong>
+                <span style="color: var(--y2k-hot-pink); font-weight: bold;">Dev Portfolio Webring</span>
+                <div class="webring-links">
+                    <a href="#" aria-label="Previous site in webring">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i> Prev
+                    </a>
+                    <a href="#" aria-label="Random site in webring">
+                        <i class="fas fa-random" aria-hidden="true"></i> Random
+                    </a>
+                    <a href="#" aria-label="Next site in webring">
+                        Next <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+
+            <hr class="win-groove" style="margin: 4px 8px;">
+
+            <p>&copy; 2026 Samuel. Built with passion and vanilla code.</p>
+
+            <!-- Last updated timestamp -->
+            <div class="last-updated">
+                <i class="fas fa-clock" aria-hidden="true"></i>
+                Last updated: <span id="last-updated-date">May 2026</span>
+            </div>
+
+            <p style="font-size: 9px; color: var(--win-dark); padding-bottom: 4px;">
+                Microsoft Windows 98 [Version 4.10.1998] &nbsp;|&nbsp;
+                <span style="color: var(--y2k-navy);">Made with Notepad.exe</span>
+            </p>
         </div>
     </footer>
 
-    <!-- Fallback: se JS è disabilitato, mostra tutte le sezioni -->
+    <!-- Fallback: if JS is disabled, show all sections immediately -->
     <noscript>
         <style>
-            section { opacity: 1; transform: none; }
+            section { opacity: 1 !important; transform: none !important; }
             .loader { display: none; }
         </style>
     </noscript>
 
     <script>
         /* ============================================================
-           JAVASCRIPT — Modulare e pulito
+           JAVASCRIPT — Modular and clean
            ============================================================ */
 
-        // ---- Intersection Observer: anima sezioni al scroll ----
+        // ---- Taskbar Clock ----
+        (() => {
+            function updateClock() {
+                const el = document.getElementById('taskbar-clock');
+                if (!el) return;
+                const now = new Date();
+                let h = now.getHours();
+                const m = String(now.getMinutes()).padStart(2, '0');
+                const ampm = h >= 12 ? 'PM' : 'AM';
+                h = h % 12 || 12;
+                el.textContent = `${h}:${m} ${ampm}`;
+            }
+            updateClock();
+            setInterval(updateClock, 30000);
+        })();
+
+        // ---- Visitor Counter (fake, random) ----
+        (() => {
+            const el = document.getElementById('visitor-count');
+            if (!el) return;
+            const count = String(Math.floor(Math.random() * 90000) + 10000);
+            el.textContent = count.padStart(6, '0');
+        })();
+
+        // ---- Guestbook fake counter ----
+        (() => {
+            const el = document.getElementById('guestbook-count');
+            if (!el) return;
+            el.textContent = String(Math.floor(Math.random() * 100) + 20);
+        })();
+
+        // ---- System Uptime counter (fake, counts from page load) ----
+        (() => {
+            const el = document.getElementById('system-uptime');
+            if (!el) return;
+            const startTime = Date.now();
+            function updateUptime() {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                const d = Math.floor(elapsed / 86400);
+                const h = Math.floor((elapsed % 86400) / 3600);
+                const m = Math.floor((elapsed % 3600) / 60);
+                el.textContent = `${d}d ${h}h ${m}m`;
+            }
+            updateUptime();
+            setInterval(updateUptime, 60000);
+        })();
+
+        // ---- Last Updated date ----
+        (() => {
+            const el = document.getElementById('last-updated-date');
+            if (!el) return;
+            const months = ['January','February','March','April','May','June',
+                            'July','August','September','October','November','December'];
+            const now = new Date();
+            el.textContent = `${months[now.getMonth()]} ${now.getFullYear()}`;
+        })();
+
+        // ---- Intersection Observer: show sections on scroll ----
+        // The transition property on `section` ensures a brief fade-in.
         (() => {
             const prefersReducedMotion = window.matchMedia(
                 '(prefers-reduced-motion: reduce)'
             ).matches;
 
             if (prefersReducedMotion) {
-                // Se l'utente prefers-reduced-motion, rendi tutto visibile subito
                 document.querySelectorAll('section').forEach(s => s.classList.add('visible'));
                 return;
             }
@@ -902,11 +2222,11 @@
                     entries.forEach((entry) => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('visible');
-                            observer.unobserve(entry.target); // Non ri-osservare
+                            observer.unobserve(entry.target);
                         }
                     });
                 },
-                { threshold: 0.1 }
+                { threshold: 0.05 }
             );
 
             document.querySelectorAll('section').forEach((section) => {
@@ -921,16 +2241,18 @@
             const overlay  = document.getElementById('nav-overlay');
             const menuIcon = document.getElementById('menu-icon');
 
+            if (!toggle || !menu) return;
+
             function openMenu() {
                 menu.classList.add('open');
-                overlay.classList.add('active');
+                if (overlay) overlay.classList.add('active');
                 toggle.setAttribute('aria-expanded', 'true');
                 menuIcon.classList.replace('fa-bars', 'fa-times');
             }
 
             function closeMenu() {
                 menu.classList.remove('open');
-                overlay.classList.remove('active');
+                if (overlay) overlay.classList.remove('active');
                 toggle.setAttribute('aria-expanded', 'false');
                 menuIcon.classList.replace('fa-times', 'fa-bars');
             }
@@ -940,72 +2262,106 @@
                 isOpen ? closeMenu() : openMenu();
             });
 
-            overlay.addEventListener('click', closeMenu);
+            if (overlay) overlay.addEventListener('click', closeMenu);
 
-            // Chiudi menu quando si clicca un link
             menu.querySelectorAll('a').forEach((link) => {
                 link.addEventListener('click', closeMenu);
             });
 
-            // Chiudi menu con tasto Escape
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && menu.classList.contains('open')) {
                     closeMenu();
-                    toggle.focus(); // Riporta il focus al bottone
+                    toggle.focus();
                 }
             });
         })();
 
-        // ---- Caricamento Progetti da GitHub API ----
+        // ---- GitHub Projects Loader ----
         (() => {
             const grid    = document.getElementById('projects-grid');
             const loader  = document.getElementById('projects-loader');
             const empty   = document.getElementById('projects-empty');
+            const statusCount = document.getElementById('projects-status-count');
             const MAX_REPOS = 6;
-            // Repo da nascondere completamente dalla lista
             const HIDDEN_REPOS = ['MY_SITE'];
 
             /**
-             * Determina se la repo ha GitHub Pages attivo.
-             * Strategy:
-             *  1. L'API GitHub restituisce `has_pages: true` se Pages è abilitato.
-             *  2. Fallback: se `homepage` contiene un URL sospetto (github.io), usiamo quello.
-             *  3. Costruisce l'URL standard: https://<owner>.github.io/<repo>/
+             * Determine if a repo has GitHub Pages enabled.
              */
             function getGitHubPagesUrl(repo) {
                 if (repo.has_pages) {
-                    // Se l'utente ha impostato un custom domain o URL nella sezione Pages
                     if (repo.homepage && repo.homepage.startsWith('http')) {
                         return repo.homepage;
                     }
-                    // URL standard GitHub Pages: progetto.deployato su <owner>.github.io/<repo>
                     return `https://${repo.owner.login.toLowerCase()}.github.io/${repo.name.toLowerCase()}/`;
                 }
                 return null;
             }
 
             /**
-             * Crea una card progetto in modo sicuro (usa textContent, non innerHTML per dati utente)
+             * Create a Win9x-styled project card.
              */
             function createProjectCard(repo) {
                 const card = document.createElement('article');
                 card.className = 'card';
-                card.setAttribute('role', 'listitem');
 
-                // Titolo sicuro (no XSS)
+                // Mini title bar
+                const titlebar = document.createElement('div');
+                titlebar.className = 'card__titlebar';
+                titlebar.setAttribute('aria-hidden', 'true');
+
+                const titlebarText = document.createElement('span');
+                titlebarText.className = 'card__titlebar-text';
+
+                const titleIcon = document.createElement('i');
+                titleIcon.className = 'fas fa-folder';
+                titleIcon.setAttribute('aria-hidden', 'true');
+                titlebarText.appendChild(titleIcon);
+
+                const titleSpan = document.createElement('span');
+                titleSpan.textContent = repo.name;
+                titlebarText.appendChild(titleSpan);
+                titlebar.appendChild(titlebarText);
+
+                // Window controls (decorative)
+                const controls = document.createElement('div');
+                controls.className = 'win-controls';
+                controls.innerHTML = '<button class="win-btn" tabindex="-1">_</button><button class="win-btn" tabindex="-1">&#9633;</button><button class="win-btn win-btn--close" tabindex="-1">&times;</button>';
+                titlebar.appendChild(controls);
+                card.appendChild(titlebar);
+
+                // Card body
+                const body = document.createElement('div');
+                body.className = 'card__body';
+
+                // Title — with "NEW!" badge if recently pushed
                 const title = document.createElement('h3');
-                title.textContent = repo.name.replace(/[-_]/g, ' ');
-                card.appendChild(title);
+                const titleTextNode = document.createTextNode(repo.name.replace(/[-_]/g, ' '));
 
-                // Descrizione
+                // Check if repo was updated in the last 30 days
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                const updatedAt = new Date(repo.updated_at);
+
+                title.appendChild(titleTextNode);
+                if (updatedAt > thirtyDaysAgo) {
+                    const badge = document.createElement('span');
+                    badge.className = 'badge-new';
+                    badge.textContent = 'new!';
+                    title.appendChild(badge);
+                }
+                body.appendChild(title);
+
+                // Description
                 const desc = document.createElement('p');
                 desc.textContent = repo.description || 'A coding project — check the repo for details.';
-                desc.style.color = 'var(--slate)';
-                desc.style.fontSize = '0.95rem';
-                desc.style.marginBottom = '0.5rem';
-                card.appendChild(desc);
+                desc.style.color = 'var(--win-text)';
+                desc.style.fontSize = '10px';
+                desc.style.marginBottom = '6px';
+                desc.style.lineHeight = '1.4';
+                body.appendChild(desc);
 
-                // Meta: linguaggio + link
+                // Meta: language + links
                 const meta = document.createElement('div');
                 meta.className = 'project-meta';
 
@@ -1016,20 +2372,18 @@
                     meta.appendChild(lang);
                 }
 
-                // Rilevamento GitHub Pages → bottone "Live Demo"
                 const pagesUrl = getGitHubPagesUrl(repo);
                 if (pagesUrl) {
                     const liveLink = document.createElement('a');
                     liveLink.href = pagesUrl;
                     liveLink.target = '_blank';
                     liveLink.rel = 'noopener noreferrer';
-                    liveLink.className = 'project-link project-link--live';
+                    liveLink.className = 'project-link--live';
                     liveLink.innerHTML = '<i class="fas fa-rocket" aria-hidden="true"></i> Live Demo';
                     liveLink.setAttribute('aria-label', `View live demo of ${repo.name}`);
                     meta.appendChild(liveLink);
                 }
 
-                // Link al codice su GitHub
                 const link = document.createElement('a');
                 link.href = repo.html_url;
                 link.target = '_blank';
@@ -1039,7 +2393,8 @@
                 link.setAttribute('aria-label', `View ${repo.name} on GitHub`);
                 meta.appendChild(link);
 
-                card.appendChild(meta);
+                body.appendChild(meta);
+                card.appendChild(body);
                 return card;
             }
 
@@ -1053,10 +2408,8 @@
 
                     const repos = await response.json();
 
-                    // Nascondi loader
                     loader.hidden = true;
 
-                    // Filtra fork, nascondi repo MY_SITE, poi prendi i primi N
                     const visible = repos
                         .filter((r) => !r.fork)
                         .filter((r) => !HIDDEN_REPOS.includes(r.name.toUpperCase()))
@@ -1070,11 +2423,15 @@
                     visible.forEach((repo) => {
                         grid.appendChild(createProjectCard(repo));
                     });
+
+                    // Update status bar count
+                    if (statusCount) {
+                        statusCount.textContent = `${visible.length} object(s)`;
+                    }
                 } catch (error) {
                     console.error('Failed to load projects:', error);
                     loader.hidden = true;
 
-                    // MODIFICA: mostra messaggio di errore amichevole
                     const errorMsg = document.createElement('div');
                     errorMsg.className = 'empty-state';
                     errorMsg.innerHTML =
