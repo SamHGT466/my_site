@@ -2675,20 +2675,32 @@
             /**
              * Determine the live demo URL for a repo.
              *
-             * BUG FIX: The original code used `repo.has_pages` (a deprecated GitHub API
-             * field) and fell back to constructing a GitHub Pages URL manually with
-             * `.toLowerCase()` on the repo name. GitHub Pages URLs are case-sensitive
-             * for the repo name, so lowercasing produced 404s. Additionally, `has_pages`
-             * is unreliable — it can be undefined for repos that DO have Pages, or stale
-             * for repos that had Pages disabled.
+             * This function checks multiple sources to find a live demo URL:
+             * 1. First, trust `repo.homepage` — the user explicitly sets this URL in
+             *    repo settings, so it's the most reliable indicator.
+             * 2. If no homepage is set, check if the repo has GitHub Pages enabled
+             *    via the `has_pages` field, and construct the GitHub Pages URL.
              *
-             * Fix: only trust `repo.homepage` — the user explicitly sets this URL in
-             * repo settings, so it's the only reliable indicator.
+             * Note: GitHub Pages URLs use the exact repo name (case-sensitive for
+             * custom domains, but lowercase for github.io subdomains).
              */
             function getGitHubPagesUrl(repo) {
+                // Priority 1: Use homepage if it's a valid HTTP(S) URL
                 if (repo.homepage && repo.homepage.trim().startsWith('http')) {
                     return repo.homepage.trim();
                 }
+                
+                // Priority 2: Check if repo has GitHub Pages enabled
+                // The has_pages field indicates whether GitHub Pages is deployed for this repo
+                if (repo.has_pages === true) {
+                    const owner = repo.owner?.login;
+                    const repoName = repo.name;
+                    if (owner && repoName) {
+                        // GitHub Pages URL format: https://{owner}.github.io/{repoName}/
+                        return `https://${owner.toLowerCase()}.github.io/${repoName}/`;
+                    }
+                }
+                
                 return null;
             }
 
